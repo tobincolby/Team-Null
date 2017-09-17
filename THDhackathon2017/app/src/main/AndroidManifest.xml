@@ -25,6 +25,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.gatech.teamnull.thdhackathon2017.model.PurchasedProductListActivity" />
         </activity>
+        <activity android:name=".SelectedProductPage"></activity>
     </application>
 
 </manifest>
