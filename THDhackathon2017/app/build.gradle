@@ -27,7 +27,6 @@ dependencies {
     compile('com.google.apis:google-api-services-youtube:v3-rev183-1.22.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-    compile project(':YouTubeAndroidPlayerApi')
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.google.android.gms:play-services-auth:10.2.1'
     compile 'pub.devrel:easypermissions:0.3.0'
@@ -35,4 +34,5 @@ dependencies {
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:recyclerview-v7:26.+'
     compile 'com.android.support:design:26.+'
+    compile files('src/libs/YouTubeAndroidPlayerApi.jar')
 }
