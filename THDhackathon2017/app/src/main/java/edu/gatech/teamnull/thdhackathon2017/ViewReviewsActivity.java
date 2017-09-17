@@ -2,9 +2,8 @@ package edu.gatech.teamnull.thdhackathon2017;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import edu.gatech.teamnull.thdhackathon2017.customviews.ReviewAdapter;
 import edu.gatech.teamnull.thdhackathon2017.model.Data;
 import edu.gatech.teamnull.thdhackathon2017.model.Product;
-import edu.gatech.teamnull.thdhackathon2017.model.ProductDBHelper;
 import edu.gatech.teamnull.thdhackathon2017.model.Review;
 import edu.gatech.teamnull.thdhackathon2017.model.ReviewDBHelper;
 
@@ -39,13 +37,16 @@ public class ViewReviewsActivity extends AppCompatActivity {
                 Data.ReviewEntry.COLUMN_NAME_REVIEWER,
                 Data.ReviewEntry.COLUMN_NAME_SKU
         };
+        // Filter results WHERE "title" = 'My Title'
+        String selection = Data.ReviewEntry.COLUMN_NAME_SKU + " = ?";
+        String[] selectionArgs = { thisProduct.getSku() };
         String sortOrder =
                 Data.ReviewEntry.COLUMN_NAME_TITLE + " DESC";
         Cursor cursor = rdb.query(
                 Data.ReviewEntry.TABLE_NAME,
                 projection,
-                null,
-                null,
+                selection,
+                selectionArgs,
                 null,
                 null,
                 sortOrder

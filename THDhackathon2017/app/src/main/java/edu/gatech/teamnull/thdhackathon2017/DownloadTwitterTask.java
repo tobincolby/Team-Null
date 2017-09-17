@@ -42,7 +42,7 @@ public class DownloadTwitterTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        final RecyclerView recyclerView = (RecyclerView) theActivity.findViewById(R.id.tweetlist);
+        final RecyclerView recyclerView = theActivity.findViewById(R.id.tweetlist);
         recyclerView.setLayoutManager(new LinearLayoutManager(theActivity));
         final UserTimeline userTimeline = new UserTimeline.Builder()
                 .screenName("HomeDepot").maxItemsPerRequest(5)

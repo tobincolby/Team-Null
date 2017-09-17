@@ -1,6 +1,9 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -30,6 +33,8 @@ import edu.gatech.teamnull.thdhackathon2017.model.Customer;
 import edu.gatech.teamnull.thdhackathon2017.model.Product;
 import edu.gatech.teamnull.thdhackathon2017.model.Search;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
+import edu.gatech.teamnull.thdhackathon2017.model.Video;
+import edu.gatech.teamnull.thdhackathon2017.model.VideoDBHelper;
 
 
 public class SelectedProductPage extends YouTubeBaseActivity
@@ -119,7 +124,10 @@ public class SelectedProductPage extends YouTubeBaseActivity
             public void onClick(View view) {
                 if (currentlyPlaying != null) {
                     Customer.addSavedVideo(currentlyPlaying);
-                    final Toast savedToast = Toast.makeText(getApplicationContext(), "Vidoe Saved", Toast.LENGTH_SHORT);
+                    VideoDBHelper helper = new VideoDBHelper(SelectedProductPage.this);
+                    SQLiteDatabase db = helper.getWritableDatabase();
+                    helper.write(db, currentlyPlaying);
+                    final Toast savedToast = Toast.makeText(getApplicationContext(), "Video Saved", Toast.LENGTH_SHORT);
                     savedToast.show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -210,7 +218,6 @@ public class SelectedProductPage extends YouTubeBaseActivity
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     @Override
     public void onInitializationSuccess(Provider provider, YouTubePlayer player, boolean wasRestored) {

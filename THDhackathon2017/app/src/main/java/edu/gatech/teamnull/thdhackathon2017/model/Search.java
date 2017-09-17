@@ -71,7 +71,7 @@ public class Search extends AsyncTask<Void, Void, Void> {
             //InputStream in = new FileInputStream("/" + PROPERTIES_FILENAME);
             //properties.load(in);
         apiKey = "AIzaSyCyZYbZPxJhH-yze8kJpKx_7wDsg6Cz8Pw";
-        this.inputQuery = inputQuery;
+        Search.inputQuery = inputQuery;
         this.currentActivity = currentActivity;
     }
 
@@ -150,14 +150,6 @@ public class Search extends AsyncTask<Void, Void, Void> {
      */
     private static ArrayList<Video> prettyPrint(Iterator<SearchResult> iteratorSearchResults, String query) {
 
-//        Log.d("Fine", "\n=============================================================");
-//        Log.d("Fine",
-//                "   First " + NUMBER_OF_VIDEOS_RETURNED + " videos for search on \"" + query + "\".");
-//        Log.d("Fine", "=============================================================\n");
-//
-//        if (!iteratorSearchResults.hasNext()) {
-//            Log.d("Fine", " There aren't any results for your query.");
-//        }
         ArrayList<Video> listOfVideos = new ArrayList<>();
         while (iteratorSearchResults.hasNext()) {
 
@@ -170,10 +162,7 @@ public class Search extends AsyncTask<Void, Void, Void> {
                 Thumbnail thumbnail = singleVideo.getSnippet().getThumbnails().getDefault();
                 Video vid = new Video(singleVideo.getSnippet().getTitle(), thumbnail, rId.getVideoId());
                 listOfVideos.add(vid);
-//                Log.d("Fine", " Video Id" + rId.getVideoId());
-//                Log.d("Fine", " Title: " + singleVideo.getSnippet().getTitle());
                 Log.d("Fine", " Thumbnail: " + thumbnail.getUrl());
-//                Log.d("Fine", "\n-------------------------------------------------------------\n");
             }
         }
         return listOfVideos;

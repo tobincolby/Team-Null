@@ -1,10 +1,8 @@
 package edu.gatech.teamnull.thdhackathon2017.model;
 
-import com.google.api.services.youtube.model.SearchResult;
 import com.google.gson.Gson;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by Colby on 9/16/17.
@@ -57,7 +55,7 @@ public class Product implements Comparable<Product>, Serializable{
 
     public static Product fromGSON(String json) {
         Gson gson = new Gson();
-        return (Product) gson.fromJson(json, Product.class);
+        return gson.fromJson(json, Product.class);
     }
 
 

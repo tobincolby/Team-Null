@@ -53,6 +53,8 @@ public class Review {
         return rating;
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
 }

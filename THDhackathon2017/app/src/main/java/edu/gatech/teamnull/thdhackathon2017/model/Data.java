@@ -32,11 +32,13 @@ public class Data {
         public static final String COLUMN_NAME_TITLE = "Product_Title";
     }
 
-//    public static class CustomerEntry implements BaseColumns {
-//        public static final String TABLE_NAME = "entry";
-//        public static final String COLUMN_NAME_TITLE = "title";
-//        public static final String COLUMN_NAME_TITLE2 = ""
-//    }
+    public static class VideoEntry implements BaseColumns {
+        public static final String TABLE_NAME = "Videos";
+        public static final String COLUMN_NAME_ID = "VideoID";
+        public static final String COLUMN_NAME_THUMBNAIL = "Thumbnail";
+        public static final String COLUMN_NAME_TITLE = "Title";
+        public static final String COLUMN_NAME_DATE = "Date";
+    }
 
 
 }
