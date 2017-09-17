@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import java.sql.Array;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import android.widget.Toolbar;
@@ -55,7 +56,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
 
     private boolean videoHidden = true;
     private Button reviewButton;
-
+    private Button viewReviews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,8 @@ public class SelectedProductPage extends YouTubeBaseActivity
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setTitle("DIY Tool Vids");
+
+        viewReviews = (Button) findViewById(R.id.viewReviews);
 
         reviewButton = (Button) findViewById(R.id.reviewButton);
         reviewButton.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +86,8 @@ public class SelectedProductPage extends YouTubeBaseActivity
         productTitleLbl.setText(product.getTitle());
 
         productPriceLbl = (TextView) findViewById(R.id.product_price_label);
-        productPriceLbl.setText("$" + product.getPrice());
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        productPriceLbl.setText(formatter.format(product.getPrice()));
 
         productSkuLbl = (TextView) findViewById(R.id.product_sku_label);
         productSkuLbl.setText(product.getSku());
@@ -115,13 +119,18 @@ public class SelectedProductPage extends YouTubeBaseActivity
         productPriceLbl.setVisibility(View.GONE);
         productSkuLbl.setVisibility(View.GONE);
         productTitleLbl.setVisibility(View.GONE);
+        reviewButton.setVisibility(View.GONE);
+        viewReviews.setVisibility(View.GONE);
     }
 
     public void showInfo() {
         productPriceLbl.setVisibility(View.VISIBLE);
         productSkuLbl.setVisibility(View.VISIBLE);
         productTitleLbl.setVisibility(View.VISIBLE);
+        reviewButton.setVisibility(View.VISIBLE);
+        viewReviews.setVisibility(View.VISIBLE);
     }
+
 
     public void stopVideo() {
         fab.setVisibility(View.GONE);
@@ -134,7 +143,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
     }
 
     public void slideToTop(View view){
-        TranslateAnimation animate = new TranslateAnimation(0,0,0,-view.getHeight());
+        TranslateAnimation animate = new TranslateAnimation(0,0,0,-view.getHeight() - reviewButton.getHeight());
         animate.setDuration(500);
         animate.setFillAfter(true);
         view.startAnimation(animate);
@@ -143,7 +152,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
     }
     public void slideDown(View view){
         view.setVisibility(View.VISIBLE);
-        TranslateAnimation animate = new TranslateAnimation(0,0,-view.getHeight(),0);
+        TranslateAnimation animate = new TranslateAnimation(0,0,-view.getHeight() - reviewButton.getHeight(),0);
         animate.setDuration(500);
         animate.setFillAfter(true);
         view.startAnimation(animate);
