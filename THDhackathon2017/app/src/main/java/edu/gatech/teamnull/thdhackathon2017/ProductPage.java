@@ -172,9 +172,6 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
             startActivity(i);
         } else if (id == R.id.nav_account) {
 
-        } else if (id == R.id.nav_selected_product) {
-            Intent i = new Intent(this, SelectedProductPage.class);
-            startActivity(i);
         } else if (id == R.id.nav_barcode) {
             Intent i = new Intent(this, BarcodeScannerActivity.class);
             startActivity(i);
