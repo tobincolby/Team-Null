@@ -1,8 +1,5 @@
 package edu.gatech.teamnull.thdhackathon2017.customviews;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -10,8 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,13 +14,11 @@ import android.widget.TextView;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 import edu.gatech.teamnull.thdhackathon2017.R;
 import edu.gatech.teamnull.thdhackathon2017.SavedVideosPage;
 import edu.gatech.teamnull.thdhackathon2017.SelectedProductPage;
-import edu.gatech.teamnull.thdhackathon2017.model.Customer;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
 
 /**
@@ -87,9 +80,9 @@ public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements Vie
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View rowView = inflater.inflate(R.layout.youtube_list_item, parent, false);
         viewHolder = new ViewHolder();
-        viewHolder.title = (TextView) rowView.findViewById(R.id.titleText);
-        viewHolder.id = (TextView) rowView.findViewById(R.id.videoID);
-        viewHolder.thumbnails = (ImageView) rowView.findViewById(R.id.thumbnail);
+        viewHolder.title = rowView.findViewById(R.id.titleText);
+        viewHolder.id = rowView.findViewById(R.id.videoID);
+        viewHolder.thumbnails = rowView.findViewById(R.id.thumbnail);
 
         rowView.setTag(position);
 

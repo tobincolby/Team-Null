@@ -47,9 +47,17 @@ public class Customer {
     }
 
 
-    public String getName() {return name;}
-    public int getID() {return ID;}
-    public ArrayList<Product> getProducts() {return productsPurchased;}
+    public String getName() {
+        return name;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return productsPurchased;
+    }
 
     public String[] getProductsByName() {
         String[] names = new String[productsPurchased.size()];

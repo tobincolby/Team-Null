@@ -4,10 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.android.gms.vision.text.Text;
 
 import java.util.ArrayList;
 
@@ -56,11 +53,11 @@ public class ReviewAdapter extends ArrayAdapter<Review> implements View.OnClickL
         ViewHolder holder=new ViewHolder();
         View rowView;
         rowView = LayoutInflater.from(getContext()).inflate(R.layout.review_list_item, parent, false);
-        holder.name=(TextView) rowView.findViewById(R.id.customerName);
+        holder.name= rowView.findViewById(R.id.customerName);
         holder.name.setText(review.getAuthor());
-        holder.stars= (TextView) rowView.findViewById(R.id.stars);
+        holder.stars= rowView.findViewById(R.id.stars);
         holder.stars.setText(review.getRating() + " Stars");
-        holder.review = (TextView) rowView.findViewById(R.id.reviewText);
+        holder.review = rowView.findViewById(R.id.reviewText);
         holder.review.setText(review.getText());
         rowView.setOnClickListener(this);
         rowView.setTag(position);

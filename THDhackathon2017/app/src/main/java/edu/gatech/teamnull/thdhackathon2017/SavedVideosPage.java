@@ -1,6 +1,8 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +21,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.api.services.youtube.model.Thumbnail;
 import com.google.api.services.youtube.model.Activity;
 
 import java.util.ArrayList;
@@ -26,9 +29,11 @@ import java.util.ArrayList;
 import edu.gatech.teamnull.thdhackathon2017.customviews.YoutubeVideoArrayAdapter;
 import edu.gatech.teamnull.thdhackathon2017.model.Config;
 import edu.gatech.teamnull.thdhackathon2017.model.Customer;
+import edu.gatech.teamnull.thdhackathon2017.model.Data;
 import edu.gatech.teamnull.thdhackathon2017.model.Product;
-import edu.gatech.teamnull.thdhackathon2017.model.Search;
+import edu.gatech.teamnull.thdhackathon2017.model.ProductDBHelper;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
+import edu.gatech.teamnull.thdhackathon2017.model.VideoDBHelper;
 
 
 public class SavedVideosPage extends YouTubeBaseActivity
@@ -54,15 +59,48 @@ public class SavedVideosPage extends YouTubeBaseActivity
         setContentView(R.layout.activity_saved_videos_page);
         Intent intent = getIntent();
         final Product product = (Product) intent.getSerializableExtra("ProductTitle");
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setActionBar(toolbar);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setTitle("DIYTube Saved Videos");
 
-        updateUI(Customer.getMySavedVideos());
+        VideoDBHelper helper = new VideoDBHelper(getApplicationContext());
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        SQLiteDatabase rdb = helper.getReadableDatabase();
+        String[] projection = {
+                Data.VideoEntry.COLUMN_NAME_TITLE,
+                Data.VideoEntry.COLUMN_NAME_THUMBNAIL,
+                Data.VideoEntry.COLUMN_NAME_ID,
+                Data.VideoEntry.COLUMN_NAME_DATE
+        };
+        String sortOrder =
+                Data.VideoEntry.COLUMN_NAME_DATE + " DESC";
+        Cursor cursor = rdb.query(
+                Data.VideoEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+        ArrayList<Video> videos = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            Thumbnail tn = new Thumbnail();
+            tn.setUrl(cursor.getString(cursor.getColumnIndexOrThrow(Data.VideoEntry.COLUMN_NAME_THUMBNAIL)));
+            videos.add(new Video(
+                    cursor.getString(cursor.getColumnIndexOrThrow(Data.VideoEntry.COLUMN_NAME_TITLE)),
+                    tn,
+                    cursor.getString(cursor.getColumnIndexOrThrow(Data.VideoEntry.COLUMN_NAME_ID))));
+        }
+        cursor.close();
+
+//        updateUI(Customer.getMySavedVideos());
+        updateUI(videos);
+
+
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +114,13 @@ public class SavedVideosPage extends YouTubeBaseActivity
             @Override
             public void onClick(View view) {
                 if (currentlyPlaying != null) {
+                    VideoDBHelper helper1 = new VideoDBHelper(getApplicationContext());
+
+                    SQLiteDatabase rdb1 = helper1.getReadableDatabase();
+                    String selection = Data.VideoEntry._ID + " LIKE ?";
+                    String[] selectionArgs = { currentlyPlaying.getId() };
+                    rdb1.delete(Data.VideoEntry.TABLE_NAME, selection, selectionArgs);
+
                     Customer.deleteSavedVideo(currentlyPlaying);
                     recreate();
                     final Toast deleteToast = Toast.makeText(getApplicationContext(), "Video Removed", Toast.LENGTH_SHORT);
