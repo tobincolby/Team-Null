@@ -4,7 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.gatech.teamnull.thdhackathon2017.ReviewProductActivity">
+    tools:context="edu.gatech.teamnull.thdhackathon2017.ReviewProductActivity"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/toolbarHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
 
     <EditText
         android:id="@+id/reviewText"
@@ -44,19 +60,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp" />
 
-    <EditText
+
+    <RatingBar
         android:id="@+id/stars"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Stars"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="16dp"
-        android:layout_margin="@dimen/text_margin"
-        tools:layout_editor_absoluteY="330dp"
-        android:layout_marginTop="28dp"
         android:layout_below="@+id/text2"
-        android:layout_centerHorizontal="true" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        />
 
     <TextView
         android:id="@+id/productName"
@@ -69,6 +81,7 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp"
         android:layout_alignStart="@+id/reviewText"
-        android:layout_marginTop="33dp" />
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/toolbarHolder"/>
 
 </RelativeLayout>

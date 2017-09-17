@@ -37,6 +37,7 @@ app:srcCompat="@android:drawable/ic_lock_power_off" />
 
 
         <TableLayout
+            android:id="@+id/infoHolder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/common_google_signin_btn_text_light_disabled">
@@ -121,7 +122,12 @@ app:srcCompat="@android:drawable/ic_lock_power_off" />
 
         </LinearLayout>
 
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Product Tutorials Below:"
+            android:id="@+id/tutorials"/>
 
         <com.google.android.youtube.player.YouTubePlayerView
             android:id="@+id/youtube_view"
