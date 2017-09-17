@@ -10,7 +10,7 @@ public class Customer {
 
     private String name;
     private int ID;
-    private ArrayList<Product> productsPurchased;
+    private ArrayList<Product> productsPurchased = new ArrayList<>();
 
     // Constructor with no products
     public Customer(String name, int ID) {
