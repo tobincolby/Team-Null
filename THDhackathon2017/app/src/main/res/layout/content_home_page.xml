@@ -8,7 +8,6 @@
     tools:context="edu.gatech.teamnull.thdhackathon2017.HomePageActivity"
     tools:showIn="@layout/app_bar_home_page">
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tweetlist"
         android:layout_width="368dp"
@@ -24,7 +23,6 @@
     <android.support.v7.widget.RecyclerView android:id="@+id/list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:divider="#e1e8ed"
         android:dividerHeight="1dp"
         android:drawSelectorOnTop="false"
