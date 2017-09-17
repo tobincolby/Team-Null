@@ -1,4 +1,4 @@
-package edu.gatech.teamnull.thdhackathon2017;
+package edu.gatech.teamnull.thdhackathon2017.model;
 
 /**
  * Created by karshinlin on 9/16/17.
