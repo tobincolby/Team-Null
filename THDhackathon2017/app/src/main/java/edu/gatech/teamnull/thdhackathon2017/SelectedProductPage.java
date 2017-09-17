@@ -224,6 +224,14 @@ public class SelectedProductPage extends YouTubeBaseActivity
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item= menu.findItem(R.id.action_settings);
+        item.setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
     public void onInitializationSuccess(Provider provider, YouTubePlayer player, boolean wasRestored) {
         this.player = player;
         player.setPlayerStateChangeListener(playerStateChangeListener);
