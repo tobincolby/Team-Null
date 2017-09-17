@@ -7,6 +7,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.api.services.youtube.model.SearchResult;
 
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,10 @@ import android.widget.Toast;
 import edu.gatech.teamnull.thdhackathon2017.model.Config;
 import android.content.Intent;
 import android.os.Bundle;
+
+import java.util.List;
+
+import edu.gatech.teamnull.thdhackathon2017.model.Search;
 
 
 public class SelectedProductPage extends YouTubeBaseActivity
@@ -31,6 +36,14 @@ public class SelectedProductPage extends YouTubeBaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        String product = intent.getStringExtra("ProductTitle");
+
+        Search mySearch = new Search(product, this);
+
+        mySearch.execute();
+
+
         setContentView(R.layout.activity_selected_product_page);
 
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
@@ -67,6 +80,10 @@ public class SelectedProductPage extends YouTubeBaseActivity
             // Retry initialization if user performed a recovery action
             getYouTubePlayerProvider().initialize(Config.YOUTUBE_API_KEY, this);
         }
+    }
+
+    public void updateUI(List<SearchResult> results) {
+        
     }
 
     protected Provider getYouTubePlayerProvider() {

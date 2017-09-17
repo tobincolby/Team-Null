@@ -13,6 +13,7 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.Activity;
 import com.google.api.services.youtube.model.ResourceId;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
@@ -24,6 +25,8 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+
+import edu.gatech.teamnull.thdhackathon2017.SelectedProductPage;
 
 /**
  * Print a list of videos matching a search term.
@@ -51,18 +54,19 @@ public class Search extends AsyncTask<Void, Void, Void> {
     private boolean queryDone = false;
 
     private List<SearchResult> results;
-
+    private Activity currentActivity;
     /**
      * Read YouTube properties file to get API key
      *
      */
-    public Search (String inputQuery) {
+    public Search (String inputQuery, Activity currentActivity) {
         // Read the developer key from the properties file.
         //Properties properties = new Properties();
             //InputStream in = new FileInputStream("/" + PROPERTIES_FILENAME);
             //properties.load(in);
         apiKey = "AIzaSyCyZYbZPxJhH-yze8kJpKx_7wDsg6Cz8Pw";
         this.inputQuery = inputQuery;
+        this.currentActivity = currentActivity;
     }
 
     protected Void doInBackground(Void... params) {
@@ -119,6 +123,16 @@ public class Search extends AsyncTask<Void, Void, Void> {
 
     public List<SearchResult> getResults() {
         return results;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        //Do All UI Changes HERE
+        super.onPostExecute(aVoid);
+        if (currentActivity instanceof SelectedProductPage) {
+            SelectedProductPage productPage = (SelectedProductPage) currentActivity;
+            productPage.updateUI(results);
+        }
     }
 
     /*
