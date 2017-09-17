@@ -26,6 +26,11 @@ public class Product implements Comparable<Product>{
     public String getTitle() { return title; }
     public int getId() { return id; }
 
+    @Override
+    public String toString() {
+        return title;
+    }
+
 
     @Override
     public int compareTo(Product other) {
