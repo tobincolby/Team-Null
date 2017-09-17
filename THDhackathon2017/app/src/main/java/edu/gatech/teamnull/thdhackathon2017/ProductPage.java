@@ -16,11 +16,12 @@ public class ProductPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
         Customer customer = new Customer("Colby", 1);
+        customer.addProduct(new Product());
         ListView productListView = (ListView) findViewById(R.id.product_list_view);
-        ArrayAdapter<Object> arrayAdapter = new ArrayAdapter<>(
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this,
-                R.layout.activity_product_page,
-                customer.getProducts().toArray());
+                android.R.layout.simple_list_item_1,
+                customer.getProductsByName());
         productListView.setAdapter(arrayAdapter);
     }
 

@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.vision.barcode.Barcode;
+
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -87,6 +89,8 @@ public class HomePageActivity extends AppCompatActivity
         } else if (id == R.id.nav_account) {
 
         } else if (id == R.id.nav_barcode) {
+            Intent i = new Intent(this, BarcodeScannerActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_selected_product) {
             Intent i = new Intent(this, SelectedProductPage.class);
