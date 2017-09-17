@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
@@ -59,7 +58,7 @@ public class SavedVideosPage extends YouTubeBaseActivity
         setActionBar(toolbar);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setTitle("DIY Tool Vids");
+        getActionBar().setTitle("DIYTube Saved Videos");
 
         updateUI(Customer.getMySavedVideos());
 
@@ -140,13 +139,6 @@ public class SavedVideosPage extends YouTubeBaseActivity
                 return super.onOptionsItemSelected(item);
         }
     }
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item= menu.findItem(R.id.action_settings);
-        item.setVisible(false);
-        super.onPrepareOptionsMenu(menu);
-        return true;
-    }
 
     @Override
     public void onInitializationSuccess(Provider provider, YouTubePlayer player, boolean wasRestored) {
@@ -213,19 +205,46 @@ public class SavedVideosPage extends YouTubeBaseActivity
         @Override
         public void onPlaying() {
             // Called when playback starts, either due to user action or call to play().
-            showMessage("Playing");
+            // Optimized to only show Toast for 1 sec
+            final Toast playToast = Toast.makeText(getApplicationContext(), "Playing", Toast.LENGTH_SHORT);
+            playToast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    playToast.cancel();
+                }
+            }, 1000);
         }
 
         @Override
         public void onPaused() {
             // Called when playback is paused, either due to user action or call to pause().
-            showMessage("Paused");
+            // Optimized to only show Toast for 1 sec
+            final Toast pauseToast = Toast.makeText(getApplicationContext(), "Paused", Toast.LENGTH_SHORT);
+            pauseToast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pauseToast.cancel();
+                }
+            }, 1000);
         }
 
         @Override
         public void onStopped() {
             // Called when playback stops for a reason other than being paused.
-            showMessage("Stopped");
+            // Optimized to only show Toast for 1 sec
+            final Toast stopToast = Toast.makeText(getApplicationContext(), "Stopped", Toast.LENGTH_SHORT);
+            stopToast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    stopToast.cancel();
+                }
+            }, 1000);
         }
 
         @Override

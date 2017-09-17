@@ -278,6 +278,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
         @Override
         public void onPlaying() {
             // Called when playback starts, either due to user action or call to play().
+            // Optimized to only show Toast for 1 sec
             final Toast playToast = Toast.makeText(getApplicationContext(), "Playing", Toast.LENGTH_SHORT);
             playToast.show();
             Handler handler = new Handler();
@@ -292,7 +293,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
         @Override
         public void onPaused() {
             // Called when playback is paused, either due to user action or call to pause().
-            //showMessage("Paused");
+            // Optimized to only show Toast for 1 sec
             final Toast pauseToast = Toast.makeText(getApplicationContext(), "Paused", Toast.LENGTH_SHORT);
             pauseToast.show();
             Handler handler = new Handler();
@@ -307,6 +308,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
         @Override
         public void onStopped() {
             // Called when playback stops for a reason other than being paused.
+            // Optimized to only show Toast for 1 sec
             final Toast stopToast = Toast.makeText(getApplicationContext(), "Stopped", Toast.LENGTH_SHORT);
             stopToast.show();
             Handler handler = new Handler();

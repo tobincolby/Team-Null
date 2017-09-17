@@ -1,7 +1,6 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
