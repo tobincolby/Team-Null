@@ -12,24 +12,28 @@ public class Product implements Comparable<Product>{
 
     private double price;
     private String title;
+    private static int idCounter;
     private int id;
+    private String sku;
 
     /***
      * Don't typically call this constructor
      */
     public Product() {
-        this(0, "Test Product", 0.0);
+        this("Test Product", 0.0, "ASSDF3");
     }
 
-    public Product(int id, String title, double price) {
-        this.id = id;
+    public Product(String title, double price, String sku) {
         this.title = title;
         this.price = price;
+        this.sku = sku;
+        this.id = idCounter++;
     }
 
     public double getPrice() { return  price; }
     public String getTitle() { return title; }
     public int getId() { return id; }
+    public String getSku() { return sku; }
 
     @Override
     public String toString() {
