@@ -21,6 +21,7 @@ import com.google.api.services.youtube.model.Thumbnail;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -37,7 +38,7 @@ public class Search extends AsyncTask<Void, Void, Void> {
      */
     private static final String PROPERTIES_FILENAME = "edu/gatech/teamnull/thdhackathon2017/youtube.properties";
 
-    private static final long NUMBER_OF_VIDEOS_RETURNED = 25;
+    private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
     private String apiKey;
 
@@ -51,6 +52,8 @@ public class Search extends AsyncTask<Void, Void, Void> {
     private boolean queryDone = false;
 
     private List<SearchResult> results;
+
+    private List<Video> videos;
 
     /**
      * Read YouTube properties file to get API key
@@ -96,7 +99,7 @@ public class Search extends AsyncTask<Void, Void, Void> {
             List<SearchResult> searchResultList = searchResponse.getItems();
             if (searchResultList != null) {
                 results = searchResultList;
-                prettyPrint(searchResultList.iterator(), inputQuery);
+                videos = prettyPrint(searchResultList.iterator(), inputQuery);
                 queryDone = true;
             } else {
                 Log.d("FINE", "NO RESULTS");
@@ -121,6 +124,8 @@ public class Search extends AsyncTask<Void, Void, Void> {
         return results;
     }
 
+    public List<Video> getVideos() { return videos; }
+
     /*
      * Prints out all results in the Iterator. For each result, print the
      * title, video ID, and thumbnail.
@@ -129,17 +134,17 @@ public class Search extends AsyncTask<Void, Void, Void> {
      *
      * @param query Search query (String)
      */
-    private static void prettyPrint(Iterator<SearchResult> iteratorSearchResults, String query) {
+    private static ArrayList<Video> prettyPrint(Iterator<SearchResult> iteratorSearchResults, String query) {
 
-        Log.d("Fine", "\n=============================================================");
-        Log.d("Fine",
-                "   First " + NUMBER_OF_VIDEOS_RETURNED + " videos for search on \"" + query + "\".");
-        Log.d("Fine", "=============================================================\n");
-
-        if (!iteratorSearchResults.hasNext()) {
-            Log.d("Fine", " There aren't any results for your query.");
-        }
-
+//        Log.d("Fine", "\n=============================================================");
+//        Log.d("Fine",
+//                "   First " + NUMBER_OF_VIDEOS_RETURNED + " videos for search on \"" + query + "\".");
+//        Log.d("Fine", "=============================================================\n");
+//
+//        if (!iteratorSearchResults.hasNext()) {
+//            Log.d("Fine", " There aren't any results for your query.");
+//        }
+        ArrayList<Video> listOfVideos = new ArrayList<>();
         while (iteratorSearchResults.hasNext()) {
 
             SearchResult singleVideo = iteratorSearchResults.next();
@@ -149,12 +154,14 @@ public class Search extends AsyncTask<Void, Void, Void> {
             // item will not contain a video ID.
             if (rId.getKind().equals("youtube#video")) {
                 Thumbnail thumbnail = singleVideo.getSnippet().getThumbnails().getDefault();
-
-                Log.d("Fine", " Video Id" + rId.getVideoId());
-                Log.d("Fine", " Title: " + singleVideo.getSnippet().getTitle());
-                Log.d("Fine", " Thumbnail: " + thumbnail.getUrl());
-                Log.d("Fine", "\n-------------------------------------------------------------\n");
+                Video vid = new Video(singleVideo.getSnippet().getTitle(), thumbnail, rId.getVideoId());
+                listOfVideos.add(vid);
+//                Log.d("Fine", " Video Id" + rId.getVideoId());
+//                Log.d("Fine", " Title: " + singleVideo.getSnippet().getTitle());
+//                Log.d("Fine", " Thumbnail: " + thumbnail.getUrl());
+//                Log.d("Fine", "\n-------------------------------------------------------------\n");
             }
         }
+        return listOfVideos;
     }
 }
