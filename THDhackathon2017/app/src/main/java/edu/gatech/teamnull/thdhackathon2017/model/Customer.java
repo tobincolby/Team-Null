@@ -12,6 +12,20 @@ public class Customer {
     private int ID;
     private ArrayList<Product> productsPurchased = new ArrayList<>();
 
+    public static ArrayList<Video> getMySavedVideos() {
+        return mySavedVideos;
+    }
+
+    public static void addSavedVideo(Video v) {
+        mySavedVideos.add(v);
+    }
+
+    public static void deleteSavedVideo(Video v) {
+        mySavedVideos.remove(v);
+    }
+
+    private static ArrayList<Video> mySavedVideos = new ArrayList<>();
+
     // Constructor with no products
     public Customer(String name, int ID) {
         this.name = name;

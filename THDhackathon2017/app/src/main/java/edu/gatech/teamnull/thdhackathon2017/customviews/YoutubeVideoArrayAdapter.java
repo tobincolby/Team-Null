@@ -14,11 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
 import edu.gatech.teamnull.thdhackathon2017.R;
+import edu.gatech.teamnull.thdhackathon2017.SavedVideosPage;
 import edu.gatech.teamnull.thdhackathon2017.SelectedProductPage;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
 
@@ -29,7 +32,7 @@ import edu.gatech.teamnull.thdhackathon2017.model.Video;
 public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements View.OnClickListener {
 
     private ArrayList<Video> dataSet;
-    private SelectedProductPage mContext;
+    private YouTubeBaseActivity mContext;
 
     // View lookup cache
     private static class ViewHolder {
@@ -45,6 +48,12 @@ public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements Vie
 
     }
 
+    public YoutubeVideoArrayAdapter(ArrayList<Video> data, SavedVideosPage context) {
+        super(context, R.layout.youtube_list_item, data);
+        this.dataSet = data;
+        this.mContext=context;
+
+    }
 
     @Override
     public Video getItem(int position) {
@@ -57,8 +66,9 @@ public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements Vie
         Object object= getItem(position);
         Video video =(Video) object;
 
-        this.mContext.playVideo(video);
-
+        if (mContext instanceof SelectedProductPage)
+            ((SelectedProductPage) mContext).playVideo(video);
+        else ((SavedVideosPage) mContext).playVideo(video);
 
     }
 
