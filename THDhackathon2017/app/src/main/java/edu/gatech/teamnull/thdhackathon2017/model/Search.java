@@ -1,4 +1,4 @@
-package edu.gatech.teamnull.thdhackathon2017;
+package edu.gatech.teamnull.thdhackathon2017.model;
 
 /**
  * Created by karshinlin on 9/16/17.
@@ -48,6 +48,10 @@ public class Search extends AsyncTask<Void, Void, Void> {
     private static YouTube youtube;
     private static String inputQuery;
 
+    private boolean queryDone = false;
+
+    private List<SearchResult> results;
+
     /**
      * Read YouTube properties file to get API key
      *
@@ -91,7 +95,9 @@ public class Search extends AsyncTask<Void, Void, Void> {
             SearchListResponse searchResponse = search.execute();
             List<SearchResult> searchResultList = searchResponse.getItems();
             if (searchResultList != null) {
+                results = searchResultList;
                 prettyPrint(searchResultList.iterator(), inputQuery);
+                queryDone = true;
             } else {
                 Log.d("FINE", "NO RESULTS");
             }
@@ -105,6 +111,14 @@ public class Search extends AsyncTask<Void, Void, Void> {
         }
 
         return null;
+    }
+
+    public boolean isQueryDone() {
+        return queryDone;
+    }
+
+    public List<SearchResult> getResults() {
+        return results;
     }
 
     /*
