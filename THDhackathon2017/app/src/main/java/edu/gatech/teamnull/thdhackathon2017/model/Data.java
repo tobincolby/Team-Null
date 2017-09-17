@@ -25,10 +25,11 @@ public class Data {
     public static class ReviewEntry implements BaseColumns {
         public static final String TABLE_NAME = "Reviews";
         public static final String _ID = "ID";
-        public static final String COLUMN_NAME_REVIEWER = "Customer ID";
+        public static final String COLUMN_NAME_REVIEWER = "Customer_ID";
         public static final String COLUMN_NAME_TEXT = "Review";
         public static final String COLUMN_NAME_RATING = "Rating";
-        public static final String COLUMN_NAME_SKU = "Product SKU";
+        public static final String COLUMN_NAME_SKU = "Product_SKU";
+        public static final String COLUMN_NAME_TITLE = "Product_Title";
     }
 
 //    public static class CustomerEntry implements BaseColumns {

@@ -49,12 +49,13 @@ public class ReviewProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Customer customer = new Customer("Colby", 0);
-                Review review = new Review(reviewText.getText().toString(), customer, stars.getNumStars(), thisProduct.getSku());
+                Review review = new Review(reviewText.getText().toString(), Customer.customerName, stars.getNumStars(), thisProduct.getSku(), thisProduct.getTitle());
                 ReviewDBHelper helper = new ReviewDBHelper(getApplicationContext());
                 SQLiteDatabase db = helper.getWritableDatabase();
                 helper.write(db, review);
                 //save the review
-                finish();
+                Intent switchToProductList = new Intent(ReviewProductActivity.this, ProductPage.class);
+                ReviewProductActivity.this.startActivity(switchToProductList);
             }
         });
 

@@ -32,7 +32,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> implements View.OnClickL
     }
 
     public ReviewAdapter(ViewReviewsActivity activity, ArrayList<Review> reviews) {
-        super(activity, R.layout.review_list_item);
+        super(activity, R.layout.review_list_item, reviews);
         dataset = reviews;
         context = activity;
     }
@@ -41,9 +41,13 @@ public class ReviewAdapter extends ArrayAdapter<Review> implements View.OnClickL
     public void onClick(View v) {
 
         int position=(Integer) v.getTag();
-        Object object= getItem(position);
-        Review dataModel=(Review) object;
+        Review dataModel = getItem(position);
 
+    }
+
+    @Override
+    public Review getItem(int position) {
+        return dataset.get(position);
     }
 
     @Override
@@ -51,11 +55,11 @@ public class ReviewAdapter extends ArrayAdapter<Review> implements View.OnClickL
         Review review = dataset.get(position);
         ViewHolder holder=new ViewHolder();
         View rowView;
-        rowView = LayoutInflater.from(getContext()).inflate(R.layout.review_list_item, null);
+        rowView = LayoutInflater.from(getContext()).inflate(R.layout.review_list_item, parent, false);
         holder.name=(TextView) rowView.findViewById(R.id.customerName);
-        holder.name.setText(review.getAuthor().getName());
+        holder.name.setText(review.getAuthor());
         holder.stars= (TextView) rowView.findViewById(R.id.stars);
-        holder.stars.setText(review.getRating());
+        holder.stars.setText(review.getRating() + " Stars");
         holder.review = (TextView) rowView.findViewById(R.id.reviewText);
         holder.review.setText(review.getText());
         rowView.setOnClickListener(this);

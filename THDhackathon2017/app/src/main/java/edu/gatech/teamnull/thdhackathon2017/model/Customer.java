@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 
 public class Customer {
-
+    public static final String customerName = "THDuser";
     private String name;
     private int ID;
     private ArrayList<Product> productsPurchased = new ArrayList<>();

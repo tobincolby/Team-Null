@@ -14,16 +14,17 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class ReviewDBHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "Reviews.db";
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + Data.ReviewEntry.TABLE_NAME + " (" +
                     Data.ReviewEntry._ID + " INTEGER PRIMARY KEY," +
-                    Data.ReviewEntry.COLUMN_NAME_REVIEWER + " INTEGER," +
+                    Data.ReviewEntry.COLUMN_NAME_REVIEWER + " TEXT," +
                     Data.ReviewEntry.COLUMN_NAME_TEXT + " TEXT," +
                     Data.ReviewEntry.COLUMN_NAME_RATING + " INTEGER," +
-                    Data.ReviewEntry.COLUMN_NAME_SKU + " TEXT)";
+                    Data.ReviewEntry.COLUMN_NAME_SKU + " TEXT," +
+                    Data.ReviewEntry.COLUMN_NAME_TITLE + ")";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + Data.ReviewEntry.TABLE_NAME;
@@ -49,7 +50,7 @@ public class ReviewDBHelper extends SQLiteOpenHelper {
 
     public void write(SQLiteDatabase db, Review current) {
         ContentValues values = new ContentValues();
-        values.put(Data.ReviewEntry.COLUMN_NAME_REVIEWER, current.getAuthor().getID());
+        values.put(Data.ReviewEntry.COLUMN_NAME_REVIEWER, Customer.customerName);
         values.put(Data.ReviewEntry.COLUMN_NAME_TEXT, current.getText());
         values.put(Data.ReviewEntry.COLUMN_NAME_RATING, current.getRating());
         values.put(Data.ReviewEntry.COLUMN_NAME_SKU, current.getSku());
