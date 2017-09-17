@@ -8,13 +8,15 @@
     tools:context="edu.gatech.teamnull.thdhackathon2017.SelectedProductPage">
 
     <android.support.design.widget.FloatingActionButton
-android:id="@+id/save"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_gravity="bottom|start"
-android:layout_margin="@dimen/fab_margin"
-android:tint="#FF0000"
-app:srcCompat="@android:drawable/ic_menu_save" />
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:tint="@color/common_google_signin_btn_text_dark_pressed"
+        app:backgroundTint="@color/colorPrimary"
+        app:rippleColor="@color/colorPrimary"
+        app:srcCompat="@android:drawable/ic_menu_save" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -22,7 +24,9 @@ app:srcCompat="@android:drawable/ic_menu_save" />
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:tint="#FF0000"
+        android:tint="@color/common_google_signin_btn_text_dark_pressed"
+        app:backgroundTint="@color/colorPrimary"
+        app:rippleColor="@color/colorPrimary"
         app:srcCompat="@android:drawable/ic_lock_power_off" />
 
     <LinearLayout
