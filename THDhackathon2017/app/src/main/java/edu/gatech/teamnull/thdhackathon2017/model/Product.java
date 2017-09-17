@@ -30,6 +30,13 @@ public class Product implements Comparable<Product>{
         this.id = idCounter++;
     }
 
+    public Product(int id, String title, double price, String sku) {
+        this.title = title;
+        this.price = price;
+        this.sku = sku;
+        this.id = id;
+    }
+
     public double getPrice() { return  price; }
     public String getTitle() { return title; }
     public int getId() { return id; }

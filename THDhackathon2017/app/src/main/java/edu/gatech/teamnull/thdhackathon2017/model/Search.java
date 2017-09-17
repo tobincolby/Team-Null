@@ -158,7 +158,7 @@ public class Search extends AsyncTask<Void, Void, Void> {
                 listOfVideos.add(vid);
 //                Log.d("Fine", " Video Id" + rId.getVideoId());
 //                Log.d("Fine", " Title: " + singleVideo.getSnippet().getTitle());
-//                Log.d("Fine", " Thumbnail: " + thumbnail.getUrl());
+                Log.d("Fine", " Thumbnail: " + thumbnail.getUrl());
 //                Log.d("Fine", "\n-------------------------------------------------------------\n");
             }
         }

@@ -74,7 +74,10 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
 //        helper.write(db, current1);
         SQLiteDatabase rdb = helper.getReadableDatabase();
         String[] projection = {
-                Data.ProductEntry.COLUMN_NAME_TITLE
+                Data.ProductEntry.COLUMN_NAME_TITLE,
+                Data.ProductEntry.COLUMN_NAME_PRICE,
+                Data.ProductEntry.COLUMN_NAME_SKU,
+                Data.ProductEntry._ID
         };
         String sortOrder =
                 Data.ProductEntry.COLUMN_NAME_TITLE + " DESC";
@@ -88,7 +91,13 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
                 sortOrder
         );
         String[] itemTitles = new String[cursor.getCount()];
+        Product[] products = new Product[cursor.getCount()];
         while(cursor.moveToNext()) {
+            products[cursor.getPosition()] = new Product(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(Data.ProductEntry._ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(Data.ProductEntry.COLUMN_NAME_TITLE)),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow(Data.ProductEntry.COLUMN_NAME_PRICE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(Data.ProductEntry.COLUMN_NAME_SKU)));
             String itemTitle = cursor.getString(
                     cursor.getColumnIndexOrThrow(Data.ProductEntry.COLUMN_NAME_TITLE));
             itemTitles[cursor.getPosition()] = itemTitle;
