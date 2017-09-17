@@ -8,6 +8,7 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.api.services.youtube.model.SearchResult;
+import com.google.api.services.youtube.model.Video;
 
 import android.view.View;
 import android.widget.Button;
@@ -39,10 +40,9 @@ public class SelectedProductPage extends YouTubeBaseActivity
         Intent intent = getIntent();
         String product = intent.getStringExtra("ProductTitle");
 
-        Search mySearch = new Search(product, this);
+        Search mySearch = new Search("hammer", this);
 
         mySearch.execute();
-
 
         setContentView(R.layout.activity_selected_product_page);
 
@@ -82,8 +82,10 @@ public class SelectedProductPage extends YouTubeBaseActivity
         }
     }
 
-    public void updateUI(List<SearchResult> results) {
-        
+    public void updateUI(List<edu.gatech.teamnull.thdhackathon2017.model.Video> results) {
+        for (edu.gatech.teamnull.thdhackathon2017.model.Video v : results) {
+            // TO DO
+        }
     }
 
     protected Provider getYouTubePlayerProvider() {

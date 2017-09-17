@@ -29,6 +29,8 @@ import java.util.Properties;
 
 import edu.gatech.teamnull.thdhackathon2017.SelectedProductPage;
 
+import edu.gatech.teamnull.thdhackathon2017.model.*;
+
 /**
  * Print a list of videos matching a search term.
  *
@@ -58,12 +60,12 @@ public class Search extends AsyncTask<Void, Void, Void> {
 
     private List<Video> videos;
 
-    private Activity currentActivity;
+    private SelectedProductPage currentActivity;
     /**
      * Read YouTube properties file to get API key
      *
      */
-    public Search (String inputQuery, Activity currentActivity) {
+    public Search (String inputQuery, SelectedProductPage currentActivity) {
         // Read the developer key from the properties file.
         //Properties properties = new Properties();
             //InputStream in = new FileInputStream("/" + PROPERTIES_FILENAME);
@@ -88,7 +90,7 @@ public class Search extends AsyncTask<Void, Void, Void> {
             YouTube.Search.List search = youtube.search().list("id,snippet");
 
             search.setKey(apiKey);
-            search.setQ(inputQuery);
+            search.setQ(inputQuery + " tutorial");
 
             // Restrict the search results to only include videos. See:
             // https://developers.google.com/youtube/v3/docs/search/list#type
@@ -133,10 +135,7 @@ public class Search extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         //Do All UI Changes HERE
         super.onPostExecute(aVoid);
-        if (currentActivity instanceof SelectedProductPage) {
-            SelectedProductPage productPage = (SelectedProductPage) currentActivity;
-            productPage.updateUI(results);
-        }
+        currentActivity.updateUI(videos);
     }
 
     public List<Video> getVideos() { return videos; }
