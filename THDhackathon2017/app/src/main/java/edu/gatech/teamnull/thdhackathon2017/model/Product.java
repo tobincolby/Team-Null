@@ -54,15 +54,15 @@ public class Product implements Comparable<Product>, Serializable{
         return this.id - other.getId();
     }
 
-    public List<SearchResult> searchForVideos() {
-        Search mySearch = new Search(title + " tutorial");
-        long startTime = System.nanoTime();
-        long fiveSeconds = 4 * (int) Math.pow(10, 9);
-        // definitely not sure this is the best way to do this but i'm not sure how to
-        // make sure the result comes back before its sent
-        while (!mySearch.isQueryDone() && System.nanoTime() - startTime < fiveSeconds) {
-
-        }
-        return mySearch.getResults();
-    }
+//    public List<SearchResult> searchForVideos() {
+//        Search mySearch = new Search(title + " tutorial");
+//        long startTime = System.nanoTime();
+//        long fiveSeconds = 4 * (int) Math.pow(10, 9);
+//        // definitely not sure this is the best way to do this but i'm not sure how to
+//        // make sure the result comes back before its sent
+//        while (!mySearch.isQueryDone() && System.nanoTime() - startTime < fiveSeconds) {
+//
+//        }
+//        return mySearch.getResults();
+//    }
 }

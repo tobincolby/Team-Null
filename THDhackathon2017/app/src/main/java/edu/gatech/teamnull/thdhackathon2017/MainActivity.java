@@ -90,7 +90,7 @@ public class MainActivity extends Activity
                 mOutputText.setText("");
                 getResultsFromApi();
                 mCallApiButton.setEnabled(true);
-                new Search("Lawn Mower").execute();
+                //new Search("Lawn Mower").execute();
             }
         });
         activityLayout.addView(mCallApiButton);

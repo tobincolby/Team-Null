@@ -13,6 +13,7 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.Activity;
 import com.google.api.services.youtube.model.ResourceId;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
@@ -25,6 +26,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+
+import edu.gatech.teamnull.thdhackathon2017.SelectedProductPage;
+
+import edu.gatech.teamnull.thdhackathon2017.model.*;
 
 /**
  * Print a list of videos matching a search term.
@@ -55,17 +60,19 @@ public class Search extends AsyncTask<Void, Void, Void> {
 
     private List<Video> videos;
 
+    private SelectedProductPage currentActivity;
     /**
      * Read YouTube properties file to get API key
      *
      */
-    public Search (String inputQuery) {
+    public Search (String inputQuery, SelectedProductPage currentActivity) {
         // Read the developer key from the properties file.
         //Properties properties = new Properties();
             //InputStream in = new FileInputStream("/" + PROPERTIES_FILENAME);
             //properties.load(in);
         apiKey = "AIzaSyCyZYbZPxJhH-yze8kJpKx_7wDsg6Cz8Pw";
         this.inputQuery = inputQuery;
+        this.currentActivity = currentActivity;
     }
 
     protected Void doInBackground(Void... params) {
@@ -83,7 +90,7 @@ public class Search extends AsyncTask<Void, Void, Void> {
             YouTube.Search.List search = youtube.search().list("id,snippet");
 
             search.setKey(apiKey);
-            search.setQ(inputQuery);
+            search.setQ(inputQuery + " tutorial");
 
             // Restrict the search results to only include videos. See:
             // https://developers.google.com/youtube/v3/docs/search/list#type
@@ -122,6 +129,13 @@ public class Search extends AsyncTask<Void, Void, Void> {
 
     public List<SearchResult> getResults() {
         return results;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        //Do All UI Changes HERE
+        super.onPostExecute(aVoid);
+        currentActivity.updateUI(videos);
     }
 
     public List<Video> getVideos() { return videos; }
