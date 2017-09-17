@@ -60,6 +60,7 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Hardcoded Customer
         Customer customer = new Customer("Colby", 1);
         Product current = new Product();
         customer.addProduct(current);
@@ -104,6 +105,7 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
                 itemTitles);
         productListView.setAdapter(arrayAdapter);
 
+        //List View has an onclick listener that passes product string to SelectedProductPage
         productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
