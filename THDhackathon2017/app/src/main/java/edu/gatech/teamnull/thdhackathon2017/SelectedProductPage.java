@@ -1,6 +1,7 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
 import android.app.ActionBar;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import java.sql.Array;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.widget.Toolbar;
 import edu.gatech.teamnull.thdhackathon2017.model.Product;
 import edu.gatech.teamnull.thdhackathon2017.model.Search;
@@ -266,19 +268,44 @@ public class SelectedProductPage extends YouTubeBaseActivity
         @Override
         public void onPlaying() {
             // Called when playback starts, either due to user action or call to play().
-            showMessage("Playing");
+            final Toast playToast = Toast.makeText(getApplicationContext(), "Playing", Toast.LENGTH_SHORT);
+            playToast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    playToast.cancel();
+                }
+            }, 1000);
         }
 
         @Override
         public void onPaused() {
             // Called when playback is paused, either due to user action or call to pause().
-            showMessage("Paused");
+            //showMessage("Paused");
+            final Toast pauseToast = Toast.makeText(getApplicationContext(), "Paused", Toast.LENGTH_SHORT);
+            pauseToast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pauseToast.cancel();
+                }
+            }, 1000);
         }
 
         @Override
         public void onStopped() {
             // Called when playback stops for a reason other than being paused.
-            showMessage("Stopped");
+            final Toast stopToast = Toast.makeText(getApplicationContext(), "Stopped", Toast.LENGTH_SHORT);
+            stopToast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    stopToast.cancel();
+                }
+            }, 1000);
         }
 
         @Override
