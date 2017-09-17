@@ -6,23 +6,27 @@
     tools:showIn="@layout/app_bar_barcode_page"
     tools:context="edu.gatech.teamnull.thdhackathon2017.BarcodeScannerActivity">
 
-        <TextView android:text="Text Is right here"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtContent"
-            tools:layout_editor_absoluteY="127dp"
-            tools:layout_editor_absoluteX="249dp"
-            android:layout_marginTop="60dp"
-            android:layout_alignParentEnd="true" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Take Picture"
-            android:id="@+id/button"
-            tools:layout_editor_absoluteY="79dp"
-            tools:layout_editor_absoluteX="234dp"
-            android:layout_below="@+id/ProductTitle"
-            android:layout_alignParentEnd="true" />
+    <TextView
+        android:id="@+id/txtContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="60dp"
+        android:text="Text Is right here"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="249dp"
+        tools:layout_editor_absoluteY="127dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan Barcode"
+        tools:layout_editor_absoluteX="234dp"
+        tools:layout_editor_absoluteY="79dp"
+        android:layout_alignBottom="@+id/editProductTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"/>
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -31,7 +35,8 @@
             tools:layout_editor_absoluteX="167dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="161dp" />
+            android:layout_marginBottom="161dp"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/ProductTitle"
@@ -92,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/button"
+            android:layout_marginLeft="16dp"
             android:layout_marginBottom="53dp"
             android:text="Add Product" />
 

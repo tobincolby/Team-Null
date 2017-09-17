@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +19,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.vision.barcode.Barcode;
+import com.twitter.sdk.android.core.DefaultLogger;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterConfig;
+
+import com.twitter.sdk.android.tweetui.TweetTimelineRecyclerViewAdapter;
+import com.twitter.sdk.android.tweetui.UserTimeline;
+import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +48,27 @@ public class HomePageActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        new DownloadTwitterTask(this).execute();
+//        TwitterConfig config = new TwitterConfig.Builder(this)
+//                .logger(new DefaultLogger(Log.DEBUG))
+//                .twitterAuthConfig(new TwitterAuthConfig("yZITfDK7vg5npvQaUzTb0ONWN", "2FntJ7AX6yjgA7AYdC7gYF6zdAtZ6vZqoXvlZFjKof4s8mY7bC"))
+//                .debug(true)
+//                .build();
+//        Twitter.initialize(config);
+//        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.tweetlist);
+//
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        final UserTimeline userTimeline = new UserTimeline.Builder()
+//                .screenName("HomeDepot")
+//                .build();
+//        final TweetTimelineRecyclerViewAdapter adapter =
+//                new TweetTimelineRecyclerViewAdapter.Builder(this)
+//                        .setTimeline(userTimeline)
+//                        .setViewStyle(R.style.tw__TweetLightWithActionsStyle)
+//                        .build();
+//        recyclerView.setAdapter(adapter);
+
     }
 
     @Override
