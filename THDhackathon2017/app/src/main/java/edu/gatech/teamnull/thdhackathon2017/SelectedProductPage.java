@@ -1,5 +1,6 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -39,17 +40,27 @@ public class SelectedProductPage extends YouTubeBaseActivity
     private MyPlaybackEventListener playbackEventListener;
     private YouTubePlayer player;
     private boolean wasRestored = true;
+    private FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_selected_product_page);
         Intent intent = getIntent();
         Product product = (Product) intent.getSerializableExtra("ProductTitle");
 
-        Search mySearch = new Search("hammer", this);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SelectedProductPage.this.stopVideo();
+            }
+        });
+        fab.setVisibility(View.INVISIBLE);
+
+        Search mySearch = new Search(product.getTitle() + " tool tutorial", this);
 
         mySearch.execute();
 
-        setContentView(R.layout.activity_selected_product_page);
 
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubeView.setVisibility(View.INVISIBLE);
@@ -57,6 +68,14 @@ public class SelectedProductPage extends YouTubeBaseActivity
 
         playerStateChangeListener = new MyPlayerStateChangeListener();
         playbackEventListener = new MyPlaybackEventListener();
+    }
+
+    public void stopVideo() {
+        fab.setVisibility(View.INVISIBLE);
+        youTubeView.setVisibility(View.INVISIBLE);
+        while (player.hasNext()) {
+            player.next();
+        }
     }
 
     @Override
@@ -93,6 +112,8 @@ public class SelectedProductPage extends YouTubeBaseActivity
 
     public void playVideo(Video video) {
         youTubeView.setVisibility(View.VISIBLE);
+        fab.setVisibility(View.VISIBLE);
+        fab.bringToFront();
         if (!wasRestored) {
             player.cueVideo(video.getId());
             if (player.hasNext()) {
