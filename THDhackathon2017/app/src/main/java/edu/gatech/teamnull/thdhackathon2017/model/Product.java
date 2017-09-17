@@ -1,15 +1,13 @@
 package edu.gatech.teamnull.thdhackathon2017.model;
-
 /**
  * Created by Colby on 9/16/17.
  */
 
-public class Product {
+public class Product implements Comparable<Product>{
 
     private double price;
     private String title;
     private int id;
-
 
     /***
      * Don't typically call this constructor
@@ -28,4 +26,14 @@ public class Product {
     public String getTitle() { return title; }
     public int getId() { return id; }
 
+    @Override
+    public String toString() {
+        return title;
+    }
+
+
+    @Override
+    public int compareTo(Product other) {
+        return this.id - other.getId();
+    }
 }
