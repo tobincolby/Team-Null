@@ -13,11 +13,16 @@ import com.google.api.services.youtube.model.Video;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import edu.gatech.teamnull.thdhackathon2017.customviews.YoutubeVideoArrayAdapter;
 import edu.gatech.teamnull.thdhackathon2017.model.Config;
 import android.content.Intent;
 import android.os.Bundle;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.gatech.teamnull.thdhackathon2017.model.Search;
@@ -82,10 +87,10 @@ public class SelectedProductPage extends YouTubeBaseActivity
         }
     }
 
-    public void updateUI(List<edu.gatech.teamnull.thdhackathon2017.model.Video> results) {
-        for (edu.gatech.teamnull.thdhackathon2017.model.Video v : results) {
-            // TO DO
-        }
+    public void updateUI(ArrayList<edu.gatech.teamnull.thdhackathon2017.model.Video> results) {
+        YoutubeVideoArrayAdapter adapter = new YoutubeVideoArrayAdapter(results, this);
+        ListView list = (ListView) findViewById(R.id.videoList);
+        list.setAdapter(adapter);
     }
 
     protected Provider getYouTubePlayerProvider() {

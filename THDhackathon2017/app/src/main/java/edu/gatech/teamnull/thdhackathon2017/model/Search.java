@@ -58,7 +58,7 @@ public class Search extends AsyncTask<Void, Void, Void> {
 
     private List<SearchResult> results;
 
-    private List<Video> videos;
+    private ArrayList<Video> videos;
 
     private SelectedProductPage currentActivity;
     /**

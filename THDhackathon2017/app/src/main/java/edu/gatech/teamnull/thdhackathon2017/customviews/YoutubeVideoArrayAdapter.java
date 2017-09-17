@@ -1,6 +1,10 @@
 package edu.gatech.teamnull.thdhackathon2017.customviews;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import edu.gatech.teamnull.thdhackathon2017.R;
@@ -63,9 +69,9 @@ public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements Vie
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View rowView = inflater.inflate(R.layout.youtube_list_item, parent, false);
         viewHolder = new ViewHolder();
-        viewHolder.title = (TextView) convertView.findViewById(R.id.titleText);
-        viewHolder.id = (TextView) convertView.findViewById(R.id.videoID);
-        viewHolder.thumbnails = (ImageView) convertView.findViewById(R.id.thumbnail);
+        viewHolder.title = (TextView) rowView.findViewById(R.id.titleText);
+        viewHolder.id = (TextView) rowView.findViewById(R.id.videoID);
+        viewHolder.thumbnails = (ImageView) rowView.findViewById(R.id.thumbnail);
 
         rowView.setTag(viewHolder);
 
@@ -74,8 +80,39 @@ public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements Vie
         viewHolder.id.setText(dataModel.getId());
         viewHolder.thumbnails.setOnClickListener(this);
         viewHolder.thumbnails.setTag(position);
+        try {
+            new DownloadImageTask(viewHolder.thumbnails).execute(dataModel.getThumbnail().getUrl());
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         // Return the completed view to render on screen
         rowView.setOnClickListener(this);
         return rowView;
+    }
+
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }
