@@ -20,7 +20,7 @@ public class ReviewProductActivity extends AppCompatActivity {
 
     private Product thisProduct;
     private EditText reviewText;
-    private EditText stars;
+    private RatingBar stars;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +39,7 @@ public class ReviewProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Customer customer = new Customer("Colby", 0);
-                Review review = new Review(reviewText.getText().toString(), customer, Integer.parseInt(stars.getText().toString()), thisProduct.getSku());
+                Review review = new Review(reviewText.getText().toString(), customer, stars.getNumStars(), thisProduct.getSku());
                 ReviewDBHelper helper = new ReviewDBHelper(getApplicationContext());
                 SQLiteDatabase db = helper.getWritableDatabase();
                 helper.write(db, review);

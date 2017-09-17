@@ -46,7 +46,7 @@ public class DownloadTwitterTask extends AsyncTask<String, Void, String> {
         final RecyclerView recyclerView = (RecyclerView) theActivity.findViewById(R.id.tweetlist);
         recyclerView.setLayoutManager(new LinearLayoutManager(theActivity));
         final UserTimeline userTimeline = new UserTimeline.Builder()
-                .screenName("HomeDepot")
+                .screenName("HomeDepot").maxItemsPerRequest(5)
                 .build();
         final TweetTimelineRecyclerViewAdapter adapter =
                 new TweetTimelineRecyclerViewAdapter.Builder(theActivity)
