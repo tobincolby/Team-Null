@@ -3,6 +3,7 @@ package edu.gatech.teamnull.thdhackathon2017;
 import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,7 +17,9 @@ import android.widget.Toolbar;
 
 import edu.gatech.teamnull.thdhackathon2017.model.Customer;
 import edu.gatech.teamnull.thdhackathon2017.model.Product;
+import edu.gatech.teamnull.thdhackathon2017.model.ProductDBHelper;
 import edu.gatech.teamnull.thdhackathon2017.model.Review;
+import edu.gatech.teamnull.thdhackathon2017.model.ReviewDBHelper;
 
 public class ReviewProductActivity extends AppCompatActivity {
 
@@ -46,7 +49,10 @@ public class ReviewProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Customer customer = new Customer("Colby", 0);
-                Review review = new Review(reviewText.getText().toString(), customer, stars.getNumStars());
+                Review review = new Review(reviewText.getText().toString(), customer, stars.getNumStars(), thisProduct.getSku());
+                ReviewDBHelper helper = new ReviewDBHelper(getApplicationContext());
+                SQLiteDatabase db = helper.getWritableDatabase();
+                helper.write(db, review);
                 //save the review
                 finish();
             }
