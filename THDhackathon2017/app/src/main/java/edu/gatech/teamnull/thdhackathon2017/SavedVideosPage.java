@@ -117,12 +117,12 @@ public class SavedVideosPage extends YouTubeBaseActivity
                     VideoDBHelper helper1 = new VideoDBHelper(getApplicationContext());
 
                     SQLiteDatabase rdb1 = helper1.getReadableDatabase();
-                    String selection = Data.VideoEntry._ID + " LIKE ?";
+                    String selection = Data.VideoEntry.COLUMN_NAME_ID + " LIKE ?";
                     String[] selectionArgs = { currentlyPlaying.getId() };
                     rdb1.delete(Data.VideoEntry.TABLE_NAME, selection, selectionArgs);
 
                     Customer.deleteSavedVideo(currentlyPlaying);
-                    recreate();
+                    //recreate();
                     final Toast deleteToast = Toast.makeText(getApplicationContext(), "Video Removed", Toast.LENGTH_SHORT);
                     deleteToast.show();
                     Handler handler = new Handler();
@@ -132,6 +132,7 @@ public class SavedVideosPage extends YouTubeBaseActivity
                             deleteToast.cancel();
                         }
                     }, 1000);
+                    finish();
                 }
             }
         });
