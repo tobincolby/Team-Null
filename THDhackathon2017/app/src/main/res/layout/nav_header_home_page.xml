@@ -17,6 +17,8 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/side_nav_bar"
+        android:backgroundTint="@color/colorPrimary"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         app:srcCompat="@mipmap/home_depot_launcher" />
 
