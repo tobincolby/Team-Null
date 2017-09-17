@@ -1,47 +1,35 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
-import android.app.ActionBar;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import com.google.android.gms.vision.text.Text;
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayer.Provider;
-import com.google.android.youtube.player.YouTubePlayerView;
-import com.google.api.services.youtube.model.SearchResult;
-
-import edu.gatech.teamnull.thdhackathon2017.model.Customer;
-import edu.gatech.teamnull.thdhackathon2017.model.Video;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TableLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
+
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayer.Provider;
+import com.google.android.youtube.player.YouTubePlayerView;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
 
 import edu.gatech.teamnull.thdhackathon2017.customviews.YoutubeVideoArrayAdapter;
 import edu.gatech.teamnull.thdhackathon2017.model.Config;
-import android.content.Intent;
-import android.os.Bundle;
-
-import java.sql.Array;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import android.widget.Toolbar;
+import edu.gatech.teamnull.thdhackathon2017.model.Customer;
 import edu.gatech.teamnull.thdhackathon2017.model.Product;
 import edu.gatech.teamnull.thdhackathon2017.model.Search;
+import edu.gatech.teamnull.thdhackathon2017.model.Video;
 
 
 public class SelectedProductPage extends YouTubeBaseActivity
@@ -223,13 +211,6 @@ public class SelectedProductPage extends YouTubeBaseActivity
         }
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item= menu.findItem(R.id.action_settings);
-        item.setVisible(false);
-        super.onPrepareOptionsMenu(menu);
-        return true;
-    }
 
     @Override
     public void onInitializationSuccess(Provider provider, YouTubePlayer player, boolean wasRestored) {

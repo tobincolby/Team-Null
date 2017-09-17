@@ -155,7 +155,7 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
     }
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item= menu.findItem(R.id.action_settings);
+        MenuItem item = menu.findItem(R.id.action_settings);
         item.setVisible(false);
         super.onPrepareOptionsMenu(menu);
         return true;
