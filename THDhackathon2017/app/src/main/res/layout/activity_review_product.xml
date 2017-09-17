@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.gatech.teamnull.thdhackathon2017.ReviewProductActivity">
+
+    <EditText
+        android:id="@+id/reviewText"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Review Here"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:selectAllOnFocus="false"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="90dp"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/productName"
+        android:layout_centerHorizontal="true"
+        android:gravity="top"/>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit Review"
+        tools:layout_editor_absoluteX="247dp"
+        tools:layout_editor_absoluteY="398dp"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/stars"
+        android:layout_alignEnd="@+id/reviewText" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How many stars do you give this product? (Out of 5)"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="297dp"
+        android:layout_below="@+id/reviewText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp" />
+
+    <EditText
+        android:id="@+id/stars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Stars"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="16dp"
+        android:layout_margin="@dimen/text_margin"
+        tools:layout_editor_absoluteY="330dp"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/text2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Name"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:typeface="normal"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp"
+        android:layout_alignStart="@+id/reviewText"
+        android:layout_marginTop="33dp" />
+
+</RelativeLayout>

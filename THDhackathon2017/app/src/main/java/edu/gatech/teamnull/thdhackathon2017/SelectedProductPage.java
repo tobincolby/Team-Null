@@ -2,7 +2,6 @@ package edu.gatech.teamnull.thdhackathon2017;
 
 import android.app.ActionBar;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -21,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TableLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,19 +56,30 @@ public class SelectedProductPage extends YouTubeBaseActivity
     private TableLayout infoTable;
 
     private boolean videoHidden = true;
-
+    private Button reviewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_product_page);
         Intent intent = getIntent();
-        Product product = (Product) intent.getSerializableExtra("ProductTitle");
+        final Product product = (Product) intent.getSerializableExtra("ProductTitle");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(toolbar);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setTitle("DIY Tool Vids");
+
+        reviewButton = (Button) findViewById(R.id.reviewButton);
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SelectedProductPage.this, ReviewProductActivity.class);
+                String key = "ProductTitle";
+                i.putExtra(key, product);
+                SelectedProductPage.this.startActivity(i);
+            }
+        });
 
         productTitleLbl = (TextView) findViewById(R.id.product_title_label);
         productTitleLbl.setText(product.getTitle());
