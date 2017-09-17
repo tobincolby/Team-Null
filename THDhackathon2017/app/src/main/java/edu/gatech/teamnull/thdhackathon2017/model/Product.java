@@ -2,13 +2,14 @@ package edu.gatech.teamnull.thdhackathon2017.model;
 
 import com.google.api.services.youtube.model.SearchResult;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Colby on 9/16/17.
  */
 
-public class Product implements Comparable<Product>{
+public class Product implements Comparable<Product>, Serializable{
 
     private double price;
     private String title;

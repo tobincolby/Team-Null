@@ -22,7 +22,7 @@ import edu.gatech.teamnull.thdhackathon2017.model.Video;
 public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements View.OnClickListener {
 
     private ArrayList<Video> dataSet;
-    Context mContext;
+    private Context mContext;
 
     // View lookup cache
     private static class ViewHolder {
@@ -60,27 +60,22 @@ public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements Vie
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View rowView = inflater.inflate(R.layout.youtube_list_item, parent, false);
+        viewHolder = new ViewHolder();
+        viewHolder.title = (TextView) convertView.findViewById(R.id.titleText);
+        viewHolder.id = (TextView) convertView.findViewById(R.id.videoID);
+        viewHolder.thumbnails = (ImageView) convertView.findViewById(R.id.thumbnail);
 
-        if (convertView == null) {
+        rowView.setTag(viewHolder);
 
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.youtube_list_item, parent, false);
-            viewHolder.title = (TextView) convertView.findViewById(R.id.titleText);
-            viewHolder.id = (TextView) convertView.findViewById(R.id.videoID);
-            viewHolder.thumbnails = (ImageView) convertView.findViewById(R.id.thumbnail);
-
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
 
         viewHolder.title.setText(dataModel.getTitle());
         viewHolder.id.setText(dataModel.getId());
         viewHolder.thumbnails.setOnClickListener(this);
         viewHolder.thumbnails.setTag(position);
         // Return the completed view to render on screen
-        convertView.setOnClickListener(this);
-        return convertView;
+        rowView.setOnClickListener(this);
+        return rowView;
     }
 }

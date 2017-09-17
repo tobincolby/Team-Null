@@ -91,7 +91,7 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
                 sortOrder
         );
         String[] itemTitles = new String[cursor.getCount()];
-        Product[] products = new Product[cursor.getCount()];
+        final Product[] products = new Product[cursor.getCount()];
         while(cursor.moveToNext()) {
             products[cursor.getPosition()] = new Product(
                     cursor.getInt(cursor.getColumnIndexOrThrow(Data.ProductEntry._ID)),
@@ -119,10 +119,16 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                Product entry = (Product) parent.getAdapter().getItem(position);
+                Product entry = products[0];
+                for (Product product : products) {
+                    String title = (String) parent.getAdapter().getItem(position);
+                    if (title.equals(product.getTitle())) {
+                        entry = product;
+                    }
+                }
                 Intent intent = new Intent(ProductPage.this, SelectedProductPage.class);
                 String key = "ProductTitle";
-                intent.putExtra(key, entry.toString());
+                intent.putExtra(key, entry);
                 startActivity(intent);
 
             }
