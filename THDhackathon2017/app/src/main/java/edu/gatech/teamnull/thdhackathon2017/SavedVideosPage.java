@@ -41,7 +41,10 @@ public class SavedVideosPage extends YouTubeBaseActivity
     private YouTubePlayer player;
     private boolean wasRestored = true;
     private FloatingActionButton fab;
+    private FloatingActionButton delete;
     private boolean videoHidden = true;
+
+    private Video currentlyPlaying = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,17 @@ public class SavedVideosPage extends YouTubeBaseActivity
         });
         fab.setVisibility(View.GONE);
 
+        delete = (FloatingActionButton) findViewById(R.id.delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentlyPlaying != null) {
+                    Customer.deleteSavedVideo(currentlyPlaying);
+                }
+            }
+        });
+        delete.setVisibility(View.GONE);
+
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubeView.setVisibility(View.GONE);
         youTubeView.initialize(Config.YOUTUBE_API_KEY, this);
@@ -77,6 +91,7 @@ public class SavedVideosPage extends YouTubeBaseActivity
 
     public void stopVideo() {
         fab.setVisibility(View.GONE);
+        delete.setVisibility(View.GONE);
         slideToTop(youTubeView);
         //youTubeView.setVisibility(View.GONE);
         while (player.hasNext()) {
@@ -150,9 +165,13 @@ public class SavedVideosPage extends YouTubeBaseActivity
         if (videoHidden) {
             slideDown(youTubeView);
         }
+        currentlyPlaying = video;
 
         fab.setVisibility(View.VISIBLE);
         fab.bringToFront();
+        delete.setVisibility(View.VISIBLE);
+        delete.bringToFront();
+        currentlyPlaying = video;
         if (!wasRestored) {
             player.cueVideo(video.getId());
             if (player.hasNext()) {

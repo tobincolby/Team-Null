@@ -1,6 +1,7 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
 import android.app.ActionBar;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.api.services.youtube.model.SearchResult;
 
-import edu.gatech.teamnull.thdhackathon2017.model.Review;
+import edu.gatech.teamnull.thdhackathon2017.model.Customer;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
 
 import android.view.Menu;
@@ -37,6 +38,7 @@ import java.sql.Array;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.widget.Toolbar;
 import edu.gatech.teamnull.thdhackathon2017.model.Product;
 import edu.gatech.teamnull.thdhackathon2017.model.Search;
@@ -54,6 +56,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
     private YouTubePlayer player;
     private boolean wasRestored = true;
     private FloatingActionButton fab;
+    private FloatingActionButton save;
 
     private TextView tutorials;
 
@@ -65,6 +68,8 @@ public class SelectedProductPage extends YouTubeBaseActivity
     private boolean videoHidden = true;
     private Button reviewButton;
     private Button viewReviews;
+
+    private Video currentlyPlaying = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,15 +83,6 @@ public class SelectedProductPage extends YouTubeBaseActivity
         getActionBar().setTitle("DIY Tool Vids");
 
         viewReviews = (Button) findViewById(R.id.viewReviews);
-        viewReviews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(SelectedProductPage.this, ViewReviewsActivity.class);
-                String key = "ProductTitle";
-                i.putExtra(key, product);
-                SelectedProductPage.this.startActivity(i);
-            }
-        });
         tutorials = (TextView) findViewById(R.id.tutorials);
         reviewButton = (Button) findViewById(R.id.reviewButton);
         reviewButton.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +115,27 @@ public class SelectedProductPage extends YouTubeBaseActivity
             }
         });
         fab.setVisibility(View.GONE);
+
+        save = (FloatingActionButton) findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentlyPlaying != null) {
+                    Customer.addSavedVideo(currentlyPlaying);
+                    final Toast savedToast = Toast.makeText(getApplicationContext(), "Vidoe Saved", Toast.LENGTH_SHORT);
+                    savedToast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            savedToast.cancel();
+                        }
+                    }, 1000);
+                }
+            }
+        });
+        save.setVisibility(View.GONE);
+
         showInfo();
 
         Search mySearch = new Search(product.getTitle() + " tool tutorial", this);
@@ -158,6 +175,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
 
     public void stopVideo() {
         fab.setVisibility(View.GONE);
+        save.setVisibility(View.GONE);
         slideToTop(youTubeView);
         //youTubeView.setVisibility(View.GONE);
         showInfo();
@@ -233,9 +251,14 @@ public class SelectedProductPage extends YouTubeBaseActivity
         if (videoHidden) {
             slideDown(youTubeView);
         }
+        currentlyPlaying = video;
 
         fab.setVisibility(View.VISIBLE);
         fab.bringToFront();
+        save.setVisibility(View.VISIBLE);
+        save.bringToFront();
+
+
         if (!wasRestored) {
             player.cueVideo(video.getId());
             if (player.hasNext()) {
@@ -257,19 +280,44 @@ public class SelectedProductPage extends YouTubeBaseActivity
         @Override
         public void onPlaying() {
             // Called when playback starts, either due to user action or call to play().
-            showMessage("Playing");
+            final Toast playToast = Toast.makeText(getApplicationContext(), "Playing", Toast.LENGTH_SHORT);
+            playToast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    playToast.cancel();
+                }
+            }, 1000);
         }
 
         @Override
         public void onPaused() {
             // Called when playback is paused, either due to user action or call to pause().
-            showMessage("Paused");
+            //showMessage("Paused");
+            final Toast pauseToast = Toast.makeText(getApplicationContext(), "Paused", Toast.LENGTH_SHORT);
+            pauseToast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pauseToast.cancel();
+                }
+            }, 1000);
         }
 
         @Override
         public void onStopped() {
             // Called when playback stops for a reason other than being paused.
-            showMessage("Stopped");
+            final Toast stopToast = Toast.makeText(getApplicationContext(), "Stopped", Toast.LENGTH_SHORT);
+            stopToast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    stopToast.cancel();
+                }
+            }, 1000);
         }
 
         @Override
