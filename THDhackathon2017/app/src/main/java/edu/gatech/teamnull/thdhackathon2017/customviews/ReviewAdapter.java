@@ -55,7 +55,7 @@ public class ReviewAdapter extends ArrayAdapter<Review> implements View.OnClickL
         holder.name=(TextView) rowView.findViewById(R.id.customerName);
         holder.name.setText(review.getAuthor().getName());
         holder.stars= (TextView) rowView.findViewById(R.id.stars);
-        holder.stars.setText(review.getStars());
+        holder.stars.setText(review.getRating());
         holder.review = (TextView) rowView.findViewById(R.id.reviewText);
         holder.review.setText(review.getText());
         rowView.setOnClickListener(this);

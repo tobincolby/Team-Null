@@ -1,6 +1,7 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +12,15 @@ import android.widget.TextView;
 
 import edu.gatech.teamnull.thdhackathon2017.model.Customer;
 import edu.gatech.teamnull.thdhackathon2017.model.Product;
+import edu.gatech.teamnull.thdhackathon2017.model.ProductDBHelper;
 import edu.gatech.teamnull.thdhackathon2017.model.Review;
+import edu.gatech.teamnull.thdhackathon2017.model.ReviewDBHelper;
 
 public class ReviewProductActivity extends AppCompatActivity {
 
     private Product thisProduct;
     private EditText reviewText;
-    private RatingBar stars;
+    private EditText stars;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,10 @@ public class ReviewProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Customer customer = new Customer("Colby", 0);
-                Review review = new Review(reviewText.getText().toString(), customer, stars.getNumStars());
+                Review review = new Review(reviewText.getText().toString(), customer, Integer.parseInt(stars.getText().toString()), thisProduct.getSku());
+                ReviewDBHelper helper = new ReviewDBHelper(getApplicationContext());
+                SQLiteDatabase db = helper.getWritableDatabase();
+                helper.write(db, review);
                 //save the review
                 finish();
             }
