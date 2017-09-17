@@ -20,6 +20,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.api.services.youtube.model.Activity;
 
 import java.util.ArrayList;
 
@@ -77,6 +78,7 @@ public class SavedVideosPage extends YouTubeBaseActivity
             public void onClick(View view) {
                 if (currentlyPlaying != null) {
                     Customer.deleteSavedVideo(currentlyPlaying);
+                    recreate();
                     final Toast deleteToast = Toast.makeText(getApplicationContext(), "Video Removed", Toast.LENGTH_SHORT);
                     deleteToast.show();
                     Handler handler = new Handler();
