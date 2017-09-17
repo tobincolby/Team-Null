@@ -2,6 +2,7 @@ package edu.gatech.teamnull.thdhackathon2017;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
@@ -49,7 +50,6 @@ public class HomePageActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        new DownloadTwitterTask(this).execute();
 //        TwitterConfig config = new TwitterConfig.Builder(this)
 //                .logger(new DefaultLogger(Log.DEBUG))
 //                .twitterAuthConfig(new TwitterAuthConfig("yZITfDK7vg5npvQaUzTb0ONWN", "2FntJ7AX6yjgA7AYdC7gYF6zdAtZ6vZqoXvlZFjKof4s8mY7bC"))
@@ -69,6 +69,12 @@ public class HomePageActivity extends AppCompatActivity
 //                        .build();
 //        recyclerView.setAdapter(adapter);
 
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        new DownloadTwitterTask(this).execute();
     }
 
     @Override

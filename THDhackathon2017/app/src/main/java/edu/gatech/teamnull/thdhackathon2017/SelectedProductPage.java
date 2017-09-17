@@ -122,6 +122,15 @@ public class SelectedProductPage extends YouTubeBaseActivity
             public void onClick(View view) {
                 if (currentlyPlaying != null) {
                     Customer.addSavedVideo(currentlyPlaying);
+                    final Toast savedToast = Toast.makeText(getApplicationContext(), "Vidoe Saved", Toast.LENGTH_SHORT);
+                    savedToast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            savedToast.cancel();
+                        }
+                    }, 1000);
                 }
             }
         });
