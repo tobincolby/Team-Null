@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.gms.vision.Frame;
@@ -41,6 +42,10 @@ public class BarcodeScannerActivity extends AppCompatActivity implements Navigat
     private TextView txtView;
     private ImageView myImageView;
 
+    private EditText name;
+    private EditText price;
+    private EditText sku;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,11 @@ public class BarcodeScannerActivity extends AppCompatActivity implements Navigat
             txtView.setText("Couldn't set it up!");
             return;
         }
+
+        name = (EditText) findViewById(R.id.editProductTitle);
+        price = (EditText) findViewById(R.id.editProductPrice);
+        sku = (EditText) findViewById(R.id.editProductSKU);
+
 
         Button btn = (Button) findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -113,8 +123,10 @@ public class BarcodeScannerActivity extends AppCompatActivity implements Navigat
             Frame frame = new Frame.Builder().setBitmap(imageBitmap).build();
             SparseArray<Barcode> barcodes = detector.detect(frame);
             Barcode thisCode = barcodes.valueAt(0);
+
             txtView.setText(thisCode.rawValue);
-            Log.d("FINE", "Works");
+            Product product = Product.fromGSON(thisCode.rawValue);
+
         }
     }
 
