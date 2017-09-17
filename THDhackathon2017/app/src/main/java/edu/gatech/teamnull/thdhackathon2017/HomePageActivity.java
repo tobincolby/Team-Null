@@ -88,6 +88,9 @@ public class HomePageActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_barcode) {
 
+        } else if (id == R.id.nav_search) {
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
         } else {
             Intent i = new Intent(this, ProductPage.class);
             startActivity(i);
