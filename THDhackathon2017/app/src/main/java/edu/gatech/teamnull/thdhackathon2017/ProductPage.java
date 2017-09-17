@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -17,8 +18,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+
 import edu.gatech.teamnull.thdhackathon2017.model.*;
 
 /**
@@ -40,8 +46,8 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent launchAddPage = new Intent(ProductPage.this, BarcodeScannerActivity.class);
+                ProductPage.this.startActivity(launchAddPage);
             }
         });
 
@@ -54,17 +60,18 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Hardcoded Customer
         Customer customer = new Customer("Colby", 1);
-        Product current = new Product();
-        customer.addProduct(current);
+//        Product current = new Product();
+//        customer.addProduct(current);
 
         //add Product to SQLite database
         ProductDBHelper helper = new ProductDBHelper(getApplicationContext());
-        SQLiteDatabase db = helper.getWritableDatabase();
-        helper.write(db, current);
-        Product current1 = new Product("Wrench", 12, "ASdf4e");
-        customer.addProduct(current1);
-        helper.write(db, current1);
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//        helper.write(db, current);
+//        Product current1 = new Product("Wrench", 12, "ASdf4e");
+//        customer.addProduct(current1);
+//        helper.write(db, current1);
         SQLiteDatabase rdb = helper.getReadableDatabase();
         String[] projection = {
                 Data.ProductEntry.COLUMN_NAME_TITLE
@@ -88,6 +95,9 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
         }
         cursor.close();
 
+        customer.addProduct(new Product());
+
+
         ListView productListView = (ListView) findViewById(R.id.product_list_view);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this,
@@ -95,6 +105,19 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
                 itemTitles);
         productListView.setAdapter(arrayAdapter);
 
+        //List View has an onclick listener that passes product string to SelectedProductPage
+        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Product entry = (Product) parent.getAdapter().getItem(position);
+                Intent intent = new Intent(ProductPage.this, SelectedProductPage.class);
+                String key = "ProductTitle";
+                intent.putExtra(key, entry.toString());
+                startActivity(intent);
+
+            }
+        });
     }
 
 
