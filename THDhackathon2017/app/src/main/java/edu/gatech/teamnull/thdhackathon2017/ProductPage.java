@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -17,8 +18,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+
 import edu.gatech.teamnull.thdhackathon2017.model.*;
 
 /**
@@ -88,6 +94,9 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
         }
         cursor.close();
 
+        customer.addProduct(new Product());
+
+
         ListView productListView = (ListView) findViewById(R.id.product_list_view);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 this,
@@ -95,6 +104,18 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
                 itemTitles);
         productListView.setAdapter(arrayAdapter);
 
+        productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Product entry = (Product) parent.getAdapter().getItem(position);
+                Intent intent = new Intent(ProductPage.this, SelectedProductPage.class);
+                String key = "ProductTitle";
+                intent.putExtra(key, entry.toString());
+                startActivity(intent);
+
+            }
+        });
     }
 
 
