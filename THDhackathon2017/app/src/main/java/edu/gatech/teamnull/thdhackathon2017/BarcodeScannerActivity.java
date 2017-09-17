@@ -161,7 +161,7 @@ public class BarcodeScannerActivity extends AppCompatActivity implements Navigat
             startActivity(i);
         } else if (id == R.id.nav_account) {
 
-        }  else if (id == R.id.nav_products){
+        } else if (id == R.id.nav_products){
             Intent i = new Intent(this, ProductPage.class);
             startActivity(i);
         }
