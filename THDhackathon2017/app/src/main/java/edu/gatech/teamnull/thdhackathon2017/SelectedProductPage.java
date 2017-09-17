@@ -1,5 +1,6 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
+import android.app.ActionBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,9 @@ import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.api.services.youtube.model.SearchResult;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
+
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
@@ -26,7 +30,7 @@ import android.os.Bundle;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
-
+import android.widget.Toolbar;
 import edu.gatech.teamnull.thdhackathon2017.model.Product;
 import edu.gatech.teamnull.thdhackathon2017.model.Search;
 
@@ -57,6 +61,11 @@ public class SelectedProductPage extends YouTubeBaseActivity
         setContentView(R.layout.activity_selected_product_page);
         Intent intent = getIntent();
         Product product = (Product) intent.getSerializableExtra("ProductTitle");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setActionBar(toolbar);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setTitle("DIY Tool Vids");
 
         productTitleLbl = (TextView) findViewById(R.id.product_title_label);
         productTitleLbl.setText(product.getTitle());
@@ -127,6 +136,18 @@ public class SelectedProductPage extends YouTubeBaseActivity
         animate.setFillAfter(true);
         view.startAnimation(animate);
         videoHidden = false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
