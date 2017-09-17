@@ -31,9 +31,10 @@ public class Product implements Comparable<Product>{
         return title;
     }
 
-
     @Override
     public int compareTo(Product other) {
         return this.id - other.getId();
     }
+
+
 }
