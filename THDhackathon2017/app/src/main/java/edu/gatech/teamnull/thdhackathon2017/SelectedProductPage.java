@@ -11,9 +11,11 @@ import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.api.services.youtube.model.SearchResult;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.gatech.teamnull.thdhackathon2017.customviews.YoutubeVideoArrayAdapter;
@@ -41,12 +43,29 @@ public class SelectedProductPage extends YouTubeBaseActivity
     private YouTubePlayer player;
     private boolean wasRestored = true;
     private FloatingActionButton fab;
+
+    private TextView productTitleLbl;
+    private TextView productPriceLbl;
+    private TextView productSkuLbl;
+
+    private boolean videoHidden = true;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_product_page);
         Intent intent = getIntent();
         Product product = (Product) intent.getSerializableExtra("ProductTitle");
+
+        productTitleLbl = (TextView) findViewById(R.id.product_title_label);
+        productTitleLbl.setText(product.getTitle());
+
+        productPriceLbl = (TextView) findViewById(R.id.product_price_label);
+        productPriceLbl.setText("$" + product.getPrice());
+
+        productSkuLbl = (TextView) findViewById(R.id.product_sku_label);
+        productSkuLbl.setText(product.getSku());
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +74,8 @@ public class SelectedProductPage extends YouTubeBaseActivity
                 SelectedProductPage.this.stopVideo();
             }
         });
-        fab.setVisibility(View.INVISIBLE);
+        fab.setVisibility(View.GONE);
+        showInfo();
 
         Search mySearch = new Search(product.getTitle() + " tool tutorial", this);
 
@@ -63,19 +83,50 @@ public class SelectedProductPage extends YouTubeBaseActivity
 
 
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
-        youTubeView.setVisibility(View.INVISIBLE);
+        youTubeView.setVisibility(View.GONE);
         youTubeView.initialize(Config.YOUTUBE_API_KEY, this);
 
         playerStateChangeListener = new MyPlayerStateChangeListener();
         playbackEventListener = new MyPlaybackEventListener();
     }
 
+    public void hideInfo() {
+        productPriceLbl.setVisibility(View.GONE);
+        productSkuLbl.setVisibility(View.GONE);
+        productTitleLbl.setVisibility(View.GONE);
+    }
+
+    public void showInfo() {
+        productPriceLbl.setVisibility(View.VISIBLE);
+        productSkuLbl.setVisibility(View.VISIBLE);
+        productTitleLbl.setVisibility(View.VISIBLE);
+    }
+
     public void stopVideo() {
-        fab.setVisibility(View.INVISIBLE);
-        youTubeView.setVisibility(View.INVISIBLE);
+        fab.setVisibility(View.GONE);
+        slideToTop(youTubeView);
+        //youTubeView.setVisibility(View.GONE);
+        showInfo();
         while (player.hasNext()) {
             player.next();
         }
+    }
+
+    public void slideToTop(View view){
+        TranslateAnimation animate = new TranslateAnimation(0,0,0,-view.getHeight());
+        animate.setDuration(500);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);
+        view.setVisibility(View.GONE);
+        videoHidden = true;
+    }
+    public void slideDown(View view){
+        view.setVisibility(View.VISIBLE);
+        TranslateAnimation animate = new TranslateAnimation(0,0,-view.getHeight(),0);
+        animate.setDuration(500);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);
+        videoHidden = false;
     }
 
     @Override
@@ -111,9 +162,14 @@ public class SelectedProductPage extends YouTubeBaseActivity
     }
 
     public void playVideo(Video video) {
-        youTubeView.setVisibility(View.VISIBLE);
+        //youTubeView.setVisibility(View.VISIBLE);
+        if (videoHidden) {
+            slideDown(youTubeView);
+        }
+
         fab.setVisibility(View.VISIBLE);
         fab.bringToFront();
+        hideInfo();
         if (!wasRestored) {
             player.cueVideo(video.getId());
             if (player.hasNext()) {

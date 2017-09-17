@@ -4,48 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context="edu.gatech.teamnull.thdhackathon2017.SelectedProductPage">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <android.support.design.widget.AppBarLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay">
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+        </android.support.design.widget.AppBarLayout>
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_google_signin_btn_text_light_disabled">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/product_title_label"
+                    style="@style/Base.TextAppearance.AppCompat.Headline"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textColor="@android:color/background_dark" />
 
-            </android.support.design.widget.AppBarLayout>
+                <LinearLayout
+                    android:id="@+id/productInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_toRightOf="@+id/title_holder"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <com.google.android.youtube.player.YouTubePlayerView
-                android:id="@+id/youtube_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/product_price_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/product_sku_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="TextView" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+        </TableLayout>
 
 
 
-            <ListView
-                android:id="@+id/videoList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<com.google.android.youtube.player.YouTubePlayerView
+android:id="@+id/youtube_view"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"/>
 
-        </LinearLayout>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:tint="#FF0000"
-        app:srcCompat="@android:drawable/ic_lock_power_off" />
-</android.support.design.widget.CoordinatorLayout>
+<ListView
+android:id="@+id/videoList"
+android:layout_width="match_parent"
+android:layout_height="match_parent" />
+
+    </LinearLayout>
+<android.support.design.widget.FloatingActionButton
+android:id="@+id/fab"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="bottom|end"
+android:layout_margin="@dimen/fab_margin"
+android:tint="#FF0000"
+app:srcCompat="@android:drawable/ic_lock_power_off" />
+    </android.support.design.widget.CoordinatorLayout>
 
 
