@@ -62,16 +62,9 @@ public class ProductPage extends AppCompatActivity  implements NavigationView.On
 
         //Hardcoded Customer
         Customer customer = new Customer("Colby", 1);
-//        Product current = new Product();
-//        customer.addProduct(current);
 
-        //add Product to SQLite database
         ProductDBHelper helper = new ProductDBHelper(getApplicationContext());
-//        SQLiteDatabase db = helper.getWritableDatabase();
-//        helper.write(db, current);
-//        Product current1 = new Product("Wrench", 12, "ASdf4e");
-//        customer.addProduct(current1);
-//        helper.write(db, current1);
+
         SQLiteDatabase rdb = helper.getReadableDatabase();
         String[] projection = {
                 Data.ProductEntry.COLUMN_NAME_TITLE,

@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Product Title"
+            android:hint="Product Title"
             android:layout_below="@+id/ProductTitle"
             android:layout_alignStart="@+id/ProductTitle" />
 
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Product SKU"
+            android:hint="Product SKU"
             android:layout_below="@+id/ProductSKU"
             android:layout_alignEnd="@+id/ProductSKU" />
 
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:text="Product Price"
+            android:hint="Product Price"
             android:layout_below="@+id/ProductPrice"
             android:layout_alignEnd="@+id/ProductSKU" />
 
