@@ -126,7 +126,9 @@ public class BarcodeScannerActivity extends AppCompatActivity implements Navigat
 
             txtView.setText(thisCode.rawValue);
             Product product = Product.fromGSON(thisCode.rawValue);
-
+            name.setText(product.getTitle());
+            price.setText("" + product.getPrice());
+            sku.setText(product.getSku());
         }
     }
 

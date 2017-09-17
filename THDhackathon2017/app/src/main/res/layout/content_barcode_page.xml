@@ -35,7 +35,8 @@
             tools:layout_editor_absoluteX="167dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="161dp" />
+            android:layout_marginBottom="161dp"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/ProductTitle"
