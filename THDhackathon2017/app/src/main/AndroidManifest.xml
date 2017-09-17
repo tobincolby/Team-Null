@@ -23,6 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".model.PurchasedProductDetailActivity"
+            android:label="@string/title_purchasedproduct_detail"
+            android:parentActivityName=".model.PurchasedProductListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.gatech.teamnull.thdhackathon2017.model.PurchasedProductListActivity" />
+        </activity>
     </application>
 
 </manifest>
