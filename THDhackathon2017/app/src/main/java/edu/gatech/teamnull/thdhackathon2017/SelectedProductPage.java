@@ -8,8 +8,7 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.api.services.youtube.model.SearchResult;
-import com.google.api.services.youtube.model.Video;
-
+import edu.gatech.teamnull.thdhackathon2017.model.Video;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +24,7 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.gatech.teamnull.thdhackathon2017.model.Product;
 import edu.gatech.teamnull.thdhackathon2017.model.Search;
 
 
@@ -38,12 +38,12 @@ public class SelectedProductPage extends YouTubeBaseActivity
     private MyPlayerStateChangeListener playerStateChangeListener;
     private MyPlaybackEventListener playbackEventListener;
     private YouTubePlayer player;
-
+    private boolean wasRestored = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String product = intent.getStringExtra("ProductTitle");
+        Product product = (Product) intent.getSerializableExtra("ProductTitle");
 
         Search mySearch = new Search("hammer", this);
 
@@ -52,6 +52,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
         setContentView(R.layout.activity_selected_product_page);
 
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
+        youTubeView.setVisibility(View.INVISIBLE);
         youTubeView.initialize(Config.YOUTUBE_API_KEY, this);
 
         playerStateChangeListener = new MyPlayerStateChangeListener();
@@ -63,10 +64,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
         this.player = player;
         player.setPlayerStateChangeListener(playerStateChangeListener);
         player.setPlaybackEventListener(playbackEventListener);
-
-        if (!wasRestored) {
-            player.cueVideo("fhWaJi1Hsfo"); // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
-        }
+        this.wasRestored = wasRestored;
     }
 
     @Override
@@ -91,6 +89,16 @@ public class SelectedProductPage extends YouTubeBaseActivity
         YoutubeVideoArrayAdapter adapter = new YoutubeVideoArrayAdapter(results, this);
         ListView list = (ListView) findViewById(R.id.videoList);
         list.setAdapter(adapter);
+    }
+
+    public void playVideo(Video video) {
+        youTubeView.setVisibility(View.VISIBLE);
+        if (!wasRestored) {
+            player.cueVideo(video.getId());
+            if (player.hasNext()) {
+                player.next();
+            }
+        }
     }
 
     protected Provider getYouTubePlayerProvider() {

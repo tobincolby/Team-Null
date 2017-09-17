@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import edu.gatech.teamnull.thdhackathon2017.R;
+import edu.gatech.teamnull.thdhackathon2017.SelectedProductPage;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
 
 /**
@@ -28,7 +29,7 @@ import edu.gatech.teamnull.thdhackathon2017.model.Video;
 public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements View.OnClickListener {
 
     private ArrayList<Video> dataSet;
-    private Context mContext;
+    private SelectedProductPage mContext;
 
     // View lookup cache
     private static class ViewHolder {
@@ -37,7 +38,7 @@ public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements Vie
         ImageView thumbnails;
     }
 
-    public YoutubeVideoArrayAdapter(ArrayList<Video> data, Context context) {
+    public YoutubeVideoArrayAdapter(ArrayList<Video> data, SelectedProductPage context) {
         super(context, R.layout.youtube_list_item, data);
         this.dataSet = data;
         this.mContext=context;
@@ -56,6 +57,8 @@ public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements Vie
         Object object= getItem(position);
         Video video =(Video) object;
 
+        this.mContext.playVideo(video);
+
 
     }
 
@@ -73,7 +76,7 @@ public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements Vie
         viewHolder.id = (TextView) rowView.findViewById(R.id.videoID);
         viewHolder.thumbnails = (ImageView) rowView.findViewById(R.id.thumbnail);
 
-        rowView.setTag(viewHolder);
+        rowView.setTag(position);
 
 
         viewHolder.title.setText(dataModel.getTitle());
