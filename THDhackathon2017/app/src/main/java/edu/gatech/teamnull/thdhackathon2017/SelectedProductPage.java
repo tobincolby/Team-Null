@@ -2,6 +2,7 @@ package edu.gatech.teamnull.thdhackathon2017;
 
 import android.app.ActionBar;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -19,6 +20,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
     private TextView productTitleLbl;
     private TextView productPriceLbl;
     private TextView productSkuLbl;
+    private TableLayout infoTable;
 
     private boolean videoHidden = true;
 
@@ -76,6 +79,8 @@ public class SelectedProductPage extends YouTubeBaseActivity
         productSkuLbl = (TextView) findViewById(R.id.product_sku_label);
         productSkuLbl.setText(product.getSku());
 
+        infoTable = (TableLayout) findViewById(R.id.infoHolder);
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,15 +105,15 @@ public class SelectedProductPage extends YouTubeBaseActivity
     }
 
     public void hideInfo() {
-        productPriceLbl.setVisibility(View.GONE);
-        productSkuLbl.setVisibility(View.GONE);
-        productTitleLbl.setVisibility(View.GONE);
+        infoTable.setVisibility(View.GONE);
+//        productSkuLbl.setVisibility(View.GONE);
+//        productTitleLbl.setVisibility(View.GONE);
     }
 
     public void showInfo() {
-        productPriceLbl.setVisibility(View.VISIBLE);
-        productSkuLbl.setVisibility(View.VISIBLE);
-        productTitleLbl.setVisibility(View.VISIBLE);
+        infoTable.setVisibility(View.VISIBLE);
+//        productSkuLbl.setVisibility(View.VISIBLE);
+//        productTitleLbl.setVisibility(View.VISIBLE);
     }
 
     public void stopVideo() {
@@ -130,6 +135,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
         videoHidden = true;
     }
     public void slideDown(View view){
+        hideInfo();
         view.setVisibility(View.VISIBLE);
         TranslateAnimation animate = new TranslateAnimation(0,0,-view.getHeight(),0);
         animate.setDuration(500);
@@ -190,7 +196,6 @@ public class SelectedProductPage extends YouTubeBaseActivity
 
         fab.setVisibility(View.VISIBLE);
         fab.bringToFront();
-        hideInfo();
         if (!wasRestored) {
             player.cueVideo(video.getId());
             if (player.hasNext()) {
