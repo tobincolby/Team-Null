@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_margin"
-        android:tint="@color/common_google_signin_btn_text_dark_pressed"
+        android:tint="@android:color/white"
         app:backgroundTint="@color/colorPrimary"
         app:rippleColor="@color/colorPrimary"
         app:srcCompat="@android:drawable/ic_menu_save" />
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:tint="@color/common_google_signin_btn_text_dark_pressed"
+        android:tint="@android:color/white"
         app:backgroundTint="@color/colorPrimary"
         app:rippleColor="@color/colorPrimary"
         app:srcCompat="@android:drawable/ic_lock_power_off" />
@@ -132,7 +132,7 @@
                     android:text="View Reviews!"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="75dp"
-                    android:layout_weight="0.51" />
+                    android:layout_weight="0.41" />
 
         </LinearLayout>
 
