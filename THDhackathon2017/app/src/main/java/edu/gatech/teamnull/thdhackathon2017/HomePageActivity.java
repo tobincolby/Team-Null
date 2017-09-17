@@ -26,7 +26,7 @@ public class HomePageActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle(R.string.app_title);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,9 +84,7 @@ public class HomePageActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_account) {
+        if (id == R.id.nav_account) {
 
         } else if (id == R.id.nav_barcode) {
             Intent i = new Intent(this, BarcodeScannerActivity.class);
@@ -95,7 +93,7 @@ public class HomePageActivity extends AppCompatActivity
         } else if (id == R.id.nav_selected_product) {
             Intent i = new Intent(this, SelectedProductPage.class);
             startActivity(i);
-        } else {
+        } else if (id == R.id.nav_products){
             Intent i = new Intent(this, ProductPage.class);
             startActivity(i);
         }
