@@ -1,6 +1,8 @@
 package edu.gatech.teamnull.thdhackathon2017.customviews;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import edu.gatech.teamnull.thdhackathon2017.R;
 import edu.gatech.teamnull.thdhackathon2017.SavedVideosPage;
 import edu.gatech.teamnull.thdhackathon2017.SelectedProductPage;
+import edu.gatech.teamnull.thdhackathon2017.model.Customer;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
 
 /**
@@ -69,8 +72,10 @@ public class YoutubeVideoArrayAdapter extends ArrayAdapter<Video> implements Vie
         if (mContext instanceof SelectedProductPage)
             ((SelectedProductPage) mContext).playVideo(video);
         else ((SavedVideosPage) mContext).playVideo(video);
-
     }
+
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

@@ -41,7 +41,10 @@ public class SavedVideosPage extends YouTubeBaseActivity
     private YouTubePlayer player;
     private boolean wasRestored = true;
     private FloatingActionButton fab;
+    private FloatingActionButton save;
     private boolean videoHidden = true;
+
+    private Video currentlyPlaying = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,7 @@ public class SavedVideosPage extends YouTubeBaseActivity
 
     public void stopVideo() {
         fab.setVisibility(View.GONE);
+        save.setVisibility(View.GONE);
         slideToTop(youTubeView);
         //youTubeView.setVisibility(View.GONE);
         while (player.hasNext()) {
@@ -153,6 +157,7 @@ public class SavedVideosPage extends YouTubeBaseActivity
 
         fab.setVisibility(View.VISIBLE);
         fab.bringToFront();
+        currentlyPlaying = video;
         if (!wasRestored) {
             player.cueVideo(video.getId());
             if (player.hasNext()) {

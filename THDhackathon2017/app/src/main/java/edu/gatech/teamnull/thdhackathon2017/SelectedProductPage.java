@@ -12,6 +12,8 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.api.services.youtube.model.SearchResult;
+
+import edu.gatech.teamnull.thdhackathon2017.model.Customer;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
 
 import android.view.Menu;
@@ -52,6 +54,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
     private YouTubePlayer player;
     private boolean wasRestored = true;
     private FloatingActionButton fab;
+    private FloatingActionButton save;
 
     private TextView tutorials;
 
@@ -63,6 +66,8 @@ public class SelectedProductPage extends YouTubeBaseActivity
     private boolean videoHidden = true;
     private Button reviewButton;
     private Button viewReviews;
+
+    private Video currentlyPlaying = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +113,18 @@ public class SelectedProductPage extends YouTubeBaseActivity
             }
         });
         fab.setVisibility(View.GONE);
+
+        save = (FloatingActionButton) findViewById(R.id.save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentlyPlaying != null) {
+                    Customer.addSavedVideo(currentlyPlaying);
+                }
+            }
+        });
+        save.setVisibility(View.GONE);
+
         showInfo();
 
         Search mySearch = new Search(product.getTitle() + " tool tutorial", this);
@@ -147,6 +164,7 @@ public class SelectedProductPage extends YouTubeBaseActivity
 
     public void stopVideo() {
         fab.setVisibility(View.GONE);
+        save.setVisibility(View.GONE);
         slideToTop(youTubeView);
         //youTubeView.setVisibility(View.GONE);
         showInfo();
@@ -222,9 +240,14 @@ public class SelectedProductPage extends YouTubeBaseActivity
         if (videoHidden) {
             slideDown(youTubeView);
         }
+        currentlyPlaying = video;
 
         fab.setVisibility(View.VISIBLE);
         fab.bringToFront();
+        save.setVisibility(View.VISIBLE);
+        save.bringToFront();
+
+
         if (!wasRestored) {
             player.cueVideo(video.getId());
             if (player.hasNext()) {
