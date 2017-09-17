@@ -85,6 +85,9 @@ public class HomePageActivity extends AppCompatActivity
         }  else if (id == R.id.nav_products){
             Intent i = new Intent(this, ProductPage.class);
             startActivity(i);
+        } else if (id == R.id.nav_saved_videos){
+            Intent i = new Intent(this, SavedVideosPage.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

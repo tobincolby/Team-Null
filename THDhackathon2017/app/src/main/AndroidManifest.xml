@@ -32,6 +32,7 @@
         <activity android:name=".BarcodeScannerActivity" />
         <activity android:name=".ReviewProductActivity" />
         <activity android:name=".ViewReviewsActivity"></activity>
+        <activity android:name=".SavedVideosPage" />
     </application>
 
 </manifest>
