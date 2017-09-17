@@ -6,26 +6,18 @@
     android:layout_height="match_parent"
     tools:context="edu.gatech.teamnull.thdhackathon2017.BarcodeScannerActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <include
+        layout="@layout/app_bar_barcode_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <TextView android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtContent"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Take Picture"
-            android:id="@+id/button"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imgview"/>
-    </LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_home_page"
+        app:menu="@menu/activity_home_drawer" />
 
 </android.support.constraint.ConstraintLayout>
