@@ -45,7 +45,7 @@ public class Product implements Comparable<Product>, Serializable{
 
     @Override
     public String toString() {
-        return title;
+        return "{title : '" + title + "', price : " + price +", sku : '" + sku + "'}";
     }
 
 
