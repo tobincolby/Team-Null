@@ -1,6 +1,7 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -28,6 +29,9 @@ import android.widget.TextView;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+
+import edu.gatech.teamnull.thdhackathon2017.model.Product;
+import edu.gatech.teamnull.thdhackathon2017.model.ProductDBHelper;
 
 public class BarcodeScannerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -66,15 +70,6 @@ public class BarcodeScannerActivity extends AppCompatActivity implements Navigat
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.app_title);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -83,7 +78,22 @@ public class BarcodeScannerActivity extends AppCompatActivity implements Navigat
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        Button addBtn = (Button) findViewById(R.id.addButton);
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String productTitle = ((TextView) findViewById(R.id.editProductTitle)).getText().toString();
+                Double productPrice = Double.parseDouble(((TextView) findViewById(R.id.editProductPrice)).getText().toString());
+                String productSKU = ((TextView) findViewById(R.id.editProductSKU)).getText().toString();
 
+                Product aProduct = new Product(productTitle, productPrice, productSKU);
+                ProductDBHelper helper = new ProductDBHelper(getApplicationContext());
+                SQLiteDatabase db = helper.getWritableDatabase();
+                helper.write(db, aProduct);
+                Intent switchToProductList = new Intent(BarcodeScannerActivity.this, ProductPage.class);
+                BarcodeScannerActivity.this.startActivity(switchToProductList);
+            }
+        });
     }
 
     private void dispatchTakePictureIntent() {
