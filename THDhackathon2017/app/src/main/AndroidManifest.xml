@@ -30,7 +30,8 @@
         </activity>
         <activity android:name=".SelectedProductPage" />
         <activity android:name=".BarcodeScannerActivity" />
-        <activity android:name=".ReviewProductActivity"></activity>
+        <activity android:name=".ReviewProductActivity" />
+        <activity android:name=".ViewReviewsActivity"></activity>
     </application>
 
 </manifest>

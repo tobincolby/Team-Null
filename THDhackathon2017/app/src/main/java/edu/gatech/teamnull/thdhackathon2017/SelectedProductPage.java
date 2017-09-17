@@ -12,6 +12,8 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.api.services.youtube.model.SearchResult;
+
+import edu.gatech.teamnull.thdhackathon2017.model.Review;
 import edu.gatech.teamnull.thdhackathon2017.model.Video;
 
 import android.view.Menu;
@@ -76,6 +78,15 @@ public class SelectedProductPage extends YouTubeBaseActivity
         getActionBar().setTitle("DIY Tool Vids");
 
         viewReviews = (Button) findViewById(R.id.viewReviews);
+        viewReviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SelectedProductPage.this, ViewReviewsActivity.class);
+                String key = "ProductTitle";
+                i.putExtra(key, product);
+                SelectedProductPage.this.startActivity(i);
+            }
+        });
         tutorials = (TextView) findViewById(R.id.tutorials);
         reviewButton = (Button) findViewById(R.id.reviewButton);
         reviewButton.setOnClickListener(new View.OnClickListener() {
