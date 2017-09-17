@@ -2,6 +2,7 @@ package edu.gatech.teamnull.thdhackathon2017;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,6 +76,15 @@ public class SavedVideosPage extends YouTubeBaseActivity
             public void onClick(View view) {
                 if (currentlyPlaying != null) {
                     Customer.deleteSavedVideo(currentlyPlaying);
+                    final Toast deleteToast = Toast.makeText(getApplicationContext(), "Video Removed", Toast.LENGTH_SHORT);
+                    deleteToast.show();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            deleteToast.cancel();
+                        }
+                    }, 1000);
                 }
             }
         });
