@@ -124,16 +124,6 @@ public class SelectedProductPage extends YouTubeBaseActivity
         });
         fab.setVisibility(View.GONE);
 
-        save = (FloatingActionButton) findViewById(R.id.save);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (currentlyPlaying != null) {
-                    Customer.addSavedVideo(currentlyPlaying);
-                }
-            }
-        });
-        save.setVisibility(View.GONE);
 
         showInfo();
 
@@ -174,7 +164,6 @@ public class SelectedProductPage extends YouTubeBaseActivity
 
     public void stopVideo() {
         fab.setVisibility(View.GONE);
-        save.setVisibility(View.GONE);
         slideToTop(youTubeView);
         //youTubeView.setVisibility(View.GONE);
         showInfo();
@@ -254,8 +243,6 @@ public class SelectedProductPage extends YouTubeBaseActivity
 
         fab.setVisibility(View.VISIBLE);
         fab.bringToFront();
-        save.setVisibility(View.VISIBLE);
-        save.bringToFront();
 
 
         if (!wasRestored) {
