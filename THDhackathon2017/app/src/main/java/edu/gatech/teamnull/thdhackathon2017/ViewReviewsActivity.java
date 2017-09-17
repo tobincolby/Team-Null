@@ -1,5 +1,7 @@
 package edu.gatech.teamnull.thdhackathon2017;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -8,8 +10,11 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import edu.gatech.teamnull.thdhackathon2017.customviews.ReviewAdapter;
+import edu.gatech.teamnull.thdhackathon2017.model.Data;
 import edu.gatech.teamnull.thdhackathon2017.model.Product;
+import edu.gatech.teamnull.thdhackathon2017.model.ProductDBHelper;
 import edu.gatech.teamnull.thdhackathon2017.model.Review;
+import edu.gatech.teamnull.thdhackathon2017.model.ReviewDBHelper;
 
 public class ViewReviewsActivity extends AppCompatActivity {
 
@@ -23,7 +28,39 @@ public class ViewReviewsActivity extends AppCompatActivity {
         thisProduct = (Product) getIntent().getSerializableExtra("ProductTitle");
 
         ListView myListView = (ListView) findViewById(R.id.reviewList);
+
+        ReviewDBHelper helper = new ReviewDBHelper(getApplicationContext());
+
+        SQLiteDatabase rdb = helper.getReadableDatabase();
+        String[] projection = {
+                Data.ReviewEntry.COLUMN_NAME_TITLE,
+                Data.ReviewEntry.COLUMN_NAME_TEXT,
+                Data.ReviewEntry.COLUMN_NAME_RATING,
+                Data.ReviewEntry.COLUMN_NAME_REVIEWER,
+                Data.ReviewEntry.COLUMN_NAME_SKU
+        };
+        String sortOrder =
+                Data.ReviewEntry.COLUMN_NAME_TITLE + " DESC";
+        Cursor cursor = rdb.query(
+                Data.ReviewEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                sortOrder
+        );
         ArrayList<Review> reviews = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            reviews.add(new Review(
+                    cursor.getString(cursor.getColumnIndexOrThrow(Data.ReviewEntry.COLUMN_NAME_TEXT)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(Data.ReviewEntry.COLUMN_NAME_REVIEWER)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(Data.ReviewEntry.COLUMN_NAME_RATING)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(Data.ReviewEntry.COLUMN_NAME_SKU)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(Data.ReviewEntry.COLUMN_NAME_TITLE))));
+        }
+        cursor.close();
+
         ReviewAdapter adapter = new ReviewAdapter(this, reviews);
 
         myListView.setAdapter(adapter);
